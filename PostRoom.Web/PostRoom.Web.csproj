@@ -125,6 +125,7 @@
     <Compile Include="Controllers\EstatesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PostController.cs" />
+    <Compile Include="Controllers\ResidentController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -174,6 +175,10 @@
     <ProjectReference Include="..\PostRoom.Data\PostRoom.Data.csproj">
       <Project>{fc99f825-8805-4bc3-b8ef-1c94d89966da}</Project>
       <Name>PostRoom.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PostRoom.Management\PostRoom.Management.csproj">
+      <Project>{ef965765-4b6d-4058-8a90-1e5483fea5a5}</Project>
+      <Name>PostRoom.Management</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

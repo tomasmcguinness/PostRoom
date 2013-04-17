@@ -11,6 +11,7 @@ namespace PostRoom.Data
   {
     public IDbSet<Estate> Estates { get; set; }
     public IDbSet<Building> Buildings { get; set; }
+    public IDbSet<Apartment> Apartments { get; set; }
     public IDbSet<Resident> Residents { get; set; }
   }
 }

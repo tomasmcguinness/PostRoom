@@ -42,11 +42,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Apartment.cs" />
     <Compile Include="Building.cs" />
     <Compile Include="Estate.cs" />
     <Compile Include="Migrations\201304171627075_Initial Create.cs" />
     <Compile Include="Migrations\201304171627075_Initial Create.Designer.cs">
       <DependentUpon>201304171627075_Initial Create.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201304171630277_Added Estate and Building connection.cs" />
+    <Compile Include="Migrations\201304171630277_Added Estate and Building connection.Designer.cs">
+      <DependentUpon>201304171630277_Added Estate and Building connection.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PostRoomDataContext.cs" />
@@ -61,6 +66,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201304171627075_Initial Create.resx">
       <DependentUpon>201304171627075_Initial Create.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201304171630277_Added Estate and Building connection.resx">
+      <DependentUpon>201304171630277_Added Estate and Building connection.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

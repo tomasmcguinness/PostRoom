@@ -10,7 +10,6 @@ namespace PostRoom.Data
   {
     public long EstateId { get; set; }
     public string Name { get; set; }
-
-
+    public virtual ICollection<Building> Buildings { get; set; }
   }
 }
