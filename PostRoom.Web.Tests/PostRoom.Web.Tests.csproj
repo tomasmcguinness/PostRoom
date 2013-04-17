@@ -124,7 +124,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PostRoom.Web\PostRoom.Web.csproj">
-      <Project>{E0ACEB01-DB6C-4AFF-BBA0-D72B0B6D37CE}</Project>
+      <Project>{f082e732-aa10-4b41-8099-126d4b67cf8b}</Project>
       <Name>PostRoom.Web</Name>
     </ProjectReference>
   </ItemGroup>

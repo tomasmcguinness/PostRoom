@@ -6,11 +6,15 @@ using System.Web.Mvc;
 
 namespace PostRoom.Web.Controllers
 {
-    public class HomeController : Controller
+    public class EstatesController : Controller
     {
+        //
+        // GET: /Estates/
+
         public ActionResult Index()
         {
             return View();
         }
+
     }
 }
