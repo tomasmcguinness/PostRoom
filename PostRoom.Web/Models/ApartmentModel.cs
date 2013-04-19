@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace PostRoom.Data
+namespace PostRoom.Web.Models
 {
-    public class Apartment
+    public class ApartmentModel
     {
         public long ApartmentId { get; set; }
+        public int ApartmentNumber { get; set; }
     }
 }

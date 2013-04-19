@@ -16,15 +16,28 @@ namespace PostRoom.Management
         context = new PostRoomDataContext();
     }
 
-    public void AddResident(long apartmentId, string deviceIdentifier)
+    public void AddResident(string uniqueIdentifier, long apartmentId)
     {
         Resident newResident = new Resident()
         {
             ApartmentId = apartmentId,
-            DeviceIdentifier = deviceIdentifier
+            UniqueIdentifier = uniqueIdentifier
         };
 
         context.Residents.Add(newResident);
+    }
+
+    public void UpdateResident(string uniqueIdentifier, string deviceIdentifier, bool alertOnNewParcel)
+    {
+        var existingResident = context.Residents.Where(r => r.UniqueIdentifier == uniqueIdentifier).Single();
+        existingResident.DeviceIdentifier = deviceIdentifier;
+        existingResident.AlertOnNewParcel = alertOnNewParcel;
+        context.SaveChanges();
+    }
+
+    public int GetNumberOfItemsToCollection(string uniqueUserIdentifier)
+    {
+        return 2;
     }
   }
 }

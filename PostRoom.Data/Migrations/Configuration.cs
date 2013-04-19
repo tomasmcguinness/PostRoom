@@ -15,25 +15,24 @@ namespace PostRoom.Data.Migrations
         protected override void Seed(PostRoom.Data.PostRoomDataContext context)
         {
             var newEstate = new Estate() { Name = "Burrells Wharf" };
-            context.Estates.Add(newEstate);
+            context.Estates.AddOrUpdate(newEstate);
 
-            var house1 = new Building() { Name = "Slipway House" };
-            house1.Estate = newEstate;
+            var house = new Building() { Name = "Slipway House", Estate = newEstate };
+            context.Buildings.AddOrUpdate(house);
+
+            house = new Building() { Name = "Plate House", Estate = newEstate };
+            context.Buildings.AddOrUpdate(house);
+
+            house = new Building() { Name = "Traffrail House", Estate = newEstate };
+            context.Buildings.AddOrUpdate(house);
+
+            house = new Building() { Name = "Chart House", Estate = newEstate };
+            context.Buildings.AddOrUpdate(house);
+
+            house = new Building() { Name = "Wheel House", Estate = newEstate };
+            context.Buildings.AddOrUpdate(house);
 
             context.SaveChanges();
-
-              //  This method will be called after migrating to the latest version.
-
-              //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-              //  to avoid creating duplicate seed data. E.g.
-              //
-              //    context.People.AddOrUpdate(
-              //      p => p.FullName,
-              //      new Person { FullName = "Andrew Peters" },
-              //      new Person { FullName = "Brice Lambson" },
-              //      new Person { FullName = "Rowan Miller" }
-              //    );
-              //
         }
     }
 }

@@ -14,5 +14,9 @@ namespace PostRoom.Data
     public long ApartmentId { get; set; }
 
     public string DeviceIdentifier { get; set; }
+
+    public string UniqueIdentifier { get; set; }
+
+    public bool AlertOnNewParcel { get; set; }
   }
 }

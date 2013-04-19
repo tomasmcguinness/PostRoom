@@ -7,18 +7,28 @@ using System.Threading.Tasks;
 
 namespace PostRoom.Management
 {
-  public class BuildingManager
-  {
-    private PostRoomDataContext context;
-
-    public BuildingManager()
+    public class PropertyManager
     {
-      context = new PostRoomDataContext();
-    }
+        private PostRoomDataContext context;
 
-    public List<Building> GetBuildingsForEstate(int userId, long estateId)
-    {
-      return context.Estates.Find(estateId).Buildings.ToList();
+        public PropertyManager()
+        {
+          context = new PostRoomDataContext();
+        }
+
+        public List<Estate> GetEstates()
+        {
+            return context.Estates.ToList();
+        }
+
+        public List<Building> GetBuildingsForEstate(long estateId)
+        {
+            return context.Estates.Find(estateId).Buildings.ToList();
+        }
+
+        public List<Apartment> GetApartmentsForBuilding(long buildingId)
+        {
+            return context.Buildings.Find(buildingId).Apartments.ToList();
+        }
     }
-  }
 }
