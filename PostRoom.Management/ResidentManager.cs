@@ -7,37 +7,38 @@ using System.Threading.Tasks;
 
 namespace PostRoom.Management
 {
-  public class ResidentManager
-  {
-    private PostRoomDataContext context;
-
-    public ResidentManager()
+    public class ResidentManager
     {
-        context = new PostRoomDataContext();
-    }
+        private PostRoomDataContext context;
 
-    public void AddResident(string uniqueIdentifier, long apartmentId)
-    {
-        Resident newResident = new Resident()
+        public ResidentManager()
         {
-            ApartmentId = apartmentId,
-            UniqueIdentifier = uniqueIdentifier
-        };
+            context = new PostRoomDataContext();
+        }
 
-        context.Residents.Add(newResident);
-    }
+        public void AddResident(string uniqueIdentifier, long apartmentId)
+        {
+            Resident newResident = new Resident()
+            {
+                ApartmentId = apartmentId,
+                UniqueIdentifier = uniqueIdentifier
+            };
 
-    public void UpdateResident(string uniqueIdentifier, string deviceIdentifier, bool alertOnNewParcel)
-    {
-        var existingResident = context.Residents.Where(r => r.UniqueIdentifier == uniqueIdentifier).Single();
-        existingResident.DeviceIdentifier = deviceIdentifier;
-        existingResident.AlertOnNewParcel = alertOnNewParcel;
-        context.SaveChanges();
-    }
+            context.Residents.Add(newResident);
+            context.SaveChanges();
+        }
 
-    public int GetNumberOfItemsToCollection(string uniqueUserIdentifier)
-    {
-        return 2;
+        public void UpdateResident(string uniqueIdentifier, string deviceIdentifier, bool alertOnNewParcel)
+        {
+            var existingResident = context.Residents.Where(r => r.UniqueIdentifier == uniqueIdentifier).Single();
+            existingResident.DeviceIdentifier = deviceIdentifier;
+            existingResident.AlertOnNewParcel = alertOnNewParcel;
+            context.SaveChanges();
+        }
+
+        public int GetNumberOfItemsToCollection(string uniqueUserIdentifier)
+        {
+            return 0;
+        }
     }
-  }
 }

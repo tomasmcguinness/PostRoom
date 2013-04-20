@@ -40,9 +40,11 @@ namespace PostRoom.Web.Controllers
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
-        public HttpResponseMessage Post(string uniqueUserIdentifier, string deviceIdentifier, bool alertOnNewPackage)
+        [HttpPost]
+        public HttpResponseMessage PostResident([FromUri]string uniqueUserIdentifier, [FromUri]string deviceIdentifier, [FromUri]bool alertOnNewPackage)
         {
             residentManager.UpdateResident(uniqueUserIdentifier, deviceIdentifier, alertOnNewPackage);
+
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
     }
