@@ -34,6 +34,8 @@
     
     tabbarController.viewControllers = [NSArray arrayWithObjects:postNavController, settingsNavController, nil];
     
+    [[[SettingsModel alloc] init] registerForNotificationsOfNewPost];
+    
     self.window.rootViewController = tabbarController;
     
     // Override point for customization after application launch.
@@ -82,6 +84,23 @@
             abort();
         } 
     }
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    NSString *deviceTokenStr = [[[[deviceToken description]
+                                  stringByReplacingOccurrencesOfString: @"<" withString: @""]
+                                 stringByReplacingOccurrencesOfString: @">" withString: @""]
+                                stringByReplacingOccurrencesOfString: @" " withString: @""];
+    
+    NSLog(@"Device Token: %@", deviceTokenStr);
+    
+    [[[SettingsModel alloc] init] storeNotificationDeviceIdentifier:deviceTokenStr];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+    NSLog(@"Failed to register: %@", [error localizedDescription]          );
 }
 
 #pragma mark - Core Data stack

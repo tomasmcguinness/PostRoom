@@ -7,9 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SettingsModel.h"
 
 @protocol PostModelDelegate<NSObject>
 
+- (void)updateSkippedNoRegistered;
 - (void)updatePostComplete;
 
 @end

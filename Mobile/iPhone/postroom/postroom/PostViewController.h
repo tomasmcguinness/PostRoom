@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "PostModel.h"
+#import "SettingsModel.h"
 
-@interface PostViewController : UIViewController<PostModelDelegate>
+@interface PostViewController : UIViewController<PostModelDelegate, UIAlertViewDelegate>
 
+@property (nonatomic) SettingsModel *settingsModel;
 @property (nonatomic) UILabel *label;
 @property (nonatomic) PostModel *model;
 

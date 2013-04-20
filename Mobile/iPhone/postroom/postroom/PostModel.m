@@ -15,6 +15,14 @@
 
 - (void)updatePost
 {
+    BOOL hasProperty = [[[SettingsModel alloc] init] hasPropertySelected];
+    
+    if(!hasProperty)
+    {
+        [self.delegate updateSkippedNoRegistered];
+        return;
+    }
+    
     NSUUID *uniqueIdentifier = [[UIDevice currentDevice] identifierForVendor];
     
     NSString *url = [NSString stringWithFormat:@"http://postroom.azurewebsites.net/api/resident?uniqueUserIdentifier=%@", [uniqueIdentifier UUIDString]];

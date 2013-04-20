@@ -19,10 +19,12 @@
 @interface SettingsModel : NSObject
 
 @property (nonatomic) id<SettingsModelDelegate> delegate;
+@property (nonatomic) NSString *apartmentName;
 @property (nonatomic, readonly) BOOL hasPropertySelected;
 
 - (void)registerUserInApartment:(NSNumber *)apartmentId;
 - (void)registerForNotificationsOfNewPost;
-- (void)registerForNotificationsWhenApprochingApartment;
+//- (void)registerForNotificationsWhenApprochingApartment;
 
+- (void)storeNotificationDeviceIdentifier:(NSString *)deviceIdentifier;
 @end

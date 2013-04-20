@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PostViewController.h"
 #import "SettingsViewController.h"
+#import "SettingsModel.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
