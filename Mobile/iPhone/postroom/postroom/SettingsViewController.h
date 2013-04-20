@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MGBox/MGBox.h"
+#import "MGBox/MGScrollView.h"
+#import "MGBox/MGTableBoxStyled.h"
+#import "MGBox/MGLineStyled.h"
+#import "SettingsModel.h"
+#import "PropertyViewController.h"
 
 @interface SettingsViewController : UITableViewController
+
+@property (nonatomic) SettingsModel *model;
 
 @end

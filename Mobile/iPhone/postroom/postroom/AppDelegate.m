@@ -22,7 +22,7 @@
     UITabBarController *tabbarController = [[UITabBarController alloc] init];
     
     PostViewController *postController = [[PostViewController alloc] init];
-    SettingsViewController *settingsController = [[SettingsViewController alloc] init];
+    SettingsViewController *settingsController = [[SettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     
     UINavigationController *postNavController = [[UINavigationController alloc] initWithRootViewController:postController];
     postNavController.tabBarItem.title = @"Post";
