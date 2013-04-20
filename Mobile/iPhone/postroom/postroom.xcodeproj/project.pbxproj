@@ -19,6 +19,7 @@
 		2CA3DB8C1722815D00401B40 /* ApartmentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA3DB8B1722815C00401B40 /* ApartmentModel.m */; };
 		2CA3DB8F1722828200401B40 /* Building.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA3DB8E1722828200401B40 /* Building.m */; };
 		2CA3DB921722851B00401B40 /* Apartment.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA3DB911722851B00401B40 /* Apartment.m */; };
+		2CA3DB951722994D00401B40 /* PostModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA3DB941722994C00401B40 /* PostModel.m */; };
 		2CFED3B217212B4D00A5E599 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CFED3B117212B4D00A5E599 /* UIKit.framework */; };
 		2CFED3B417212B4D00A5E599 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CFED3B317212B4D00A5E599 /* Foundation.framework */; };
 		2CFED3B617212B4D00A5E599 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CFED3B517212B4D00A5E599 /* CoreGraphics.framework */; };
@@ -73,6 +74,8 @@
 		2CA3DB8E1722828200401B40 /* Building.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Building.m; sourceTree = "<group>"; };
 		2CA3DB901722851B00401B40 /* Apartment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Apartment.h; sourceTree = "<group>"; };
 		2CA3DB911722851B00401B40 /* Apartment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Apartment.m; sourceTree = "<group>"; };
+		2CA3DB931722994C00401B40 /* PostModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostModel.h; sourceTree = "<group>"; };
+		2CA3DB941722994C00401B40 /* PostModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostModel.m; sourceTree = "<group>"; };
 		2CFED3AE17212B4D00A5E599 /* postroom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = postroom.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CFED3B117212B4D00A5E599 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2CFED3B317212B4D00A5E599 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -139,6 +142,8 @@
 				2CA3DB7B17226FD200401B40 /* EstateModel.m */,
 				2CA3DB771721B5BC00401B40 /* SettingsModel.h */,
 				2CA3DB781721B5BC00401B40 /* SettingsModel.m */,
+				2CA3DB931722994C00401B40 /* PostModel.h */,
+				2CA3DB941722994C00401B40 /* PostModel.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -377,6 +382,7 @@
 				2CA3DB8C1722815D00401B40 /* ApartmentModel.m in Sources */,
 				2CA3DB8F1722828200401B40 /* Building.m in Sources */,
 				2CA3DB921722851B00401B40 /* Apartment.m in Sources */,
+				2CA3DB951722994D00401B40 /* PostModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

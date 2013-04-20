@@ -14,11 +14,16 @@
 
 @implementation PostViewController
 
+@synthesize label;
+@synthesize model;
+
 - (id)init
 {
     self = [super init];
-    if (self) {
-        // Custom initialization
+    if (self)
+    {
+        self.model = [[PostModel alloc] init];
+        self.model.delegate = self;
     }
     return self;
 }
@@ -29,10 +34,13 @@
     
     self.navigationItem.title = @"Post";
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(50, 50, 320, 200)];
-    label.text = @"2";
+    self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 50, 320, 200)];
+    self.label.textAlignment = NSTextAlignmentCenter;
+    [self.label setFont:[UIFont fontWithName:@"BanglaSangamMN" size:140]];
     
-    [self.view addSubview:label];
+    [self.view addSubview:self.label];
+    
+    [self.model updatePost];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -47,5 +55,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - PostModelDelegate
+
+- (void)updatePostComplete
+{
+    self.label.text = [NSString stringWithFormat:@"%@", self.model.numberOfItems];
+}
 
 @end

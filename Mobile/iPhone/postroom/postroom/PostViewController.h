@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PostModel.h"
 
-@interface PostViewController : UIViewController
+@interface PostViewController : UIViewController<PostModelDelegate>
+
+@property (nonatomic) UILabel *label;
+@property (nonatomic) PostModel *model;
 
 @end
