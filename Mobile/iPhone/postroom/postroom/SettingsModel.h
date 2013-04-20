@@ -22,5 +22,7 @@
 @property (nonatomic, readonly) BOOL hasPropertySelected;
 
 - (void)registerUserInApartment:(NSNumber *)apartmentId;
+- (void)registerForNotificationsOfNewPost;
+- (void)registerForNotificationsWhenApprochingApartment;
 
 @end

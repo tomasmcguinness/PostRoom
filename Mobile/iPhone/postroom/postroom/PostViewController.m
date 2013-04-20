@@ -33,10 +33,11 @@
     [super viewDidLoad];
     
     self.navigationItem.title = @"Post";
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)];
     
     self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 50, 320, 200)];
     self.label.textAlignment = NSTextAlignmentCenter;
-    [self.label setFont:[UIFont fontWithName:@"BanglaSangamMN" size:140]];
+    [self.label setFont:[UIFont fontWithName:@"Baskerville-BoldItalic" size:170]];
     
     [self.view addSubview:self.label];
     
@@ -55,11 +56,25 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)refresh
+{
+    [self.model updatePost];
+}
+
 #pragma mark - PostModelDelegate
 
 - (void)updatePostComplete
 {
-    self.label.text = [NSString stringWithFormat:@"%@", self.model.numberOfItems];
+    if([self.model.numberOfItems intValue] == 0)
+    {
+        self.label.text = nil;
+        self.navigationController.tabBarItem.badgeValue = nil;
+    }
+    else
+    {
+        self.label.text = [NSString stringWithFormat:@"%@", self.model.numberOfItems];
+        self.navigationController.tabBarItem.badgeValue =self.label.text;
+    }
 }
 
 @end

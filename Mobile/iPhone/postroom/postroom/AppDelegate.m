@@ -26,8 +26,11 @@
     
     UINavigationController *postNavController = [[UINavigationController alloc] initWithRootViewController:postController];
     postNavController.tabBarItem.title = @"Post";
+    postNavController.tabBarItem.image = [UIImage imageNamed:@"letter_closed"];
+
     UINavigationController *settingsNavController = [[UINavigationController alloc] initWithRootViewController:settingsController];
     settingsNavController.tabBarItem.title = @"Settings";
+    settingsNavController.tabBarItem.image = [UIImage imageNamed:@"cog_02"];
     
     tabbarController.viewControllers = [NSArray arrayWithObjects:postNavController, settingsNavController, nil];
     

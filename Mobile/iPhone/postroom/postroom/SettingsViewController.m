@@ -88,6 +88,9 @@
             }
             break;
         }
+        case 1:
+            [self buildNotificationCell:indexPath withCell:cell];
+            break;
     }
     
     return cell;
@@ -102,6 +105,19 @@
         case 0:
             [self handlePropertyCellClick:indexPath];
             break;
+    }
+}
+
+- (void)buildNotificationCell:(NSIndexPath *)indexPath withCell:(UITableViewCell *)cell
+{
+    if(indexPath.row == 0)
+    {
+        cell.textLabel.text = @"New post received";
+    }
+    
+    if(indexPath.row == 1)
+    {
+        cell.textLabel.text = @"Nearing your apartment";
     }
 }
 
