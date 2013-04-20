@@ -34,9 +34,9 @@ namespace PostRoom.Web.Controllers
             };
         }
 
-        public HttpResponseMessage Put(string uniqueUserIdentifier,long apartmentId)
+        public HttpResponseMessage Put(string uniqueUserIdentifier, long apartmentId)
         {
-            residentManager.AddResident(uniqueUserIdentifier, apartmentId); 
+            residentManager.AddResident(uniqueUserIdentifier, apartmentId);
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
 

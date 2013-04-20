@@ -59,6 +59,10 @@
     <Compile Include="Migrations\201304191014006_Updated Apartment.Designer.cs">
       <DependentUpon>201304191014006_Updated Apartment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201304200838181_Added apartment number.cs" />
+    <Compile Include="Migrations\201304200838181_Added apartment number.Designer.cs">
+      <DependentUpon>201304200838181_Added apartment number.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PostRoomDataContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -78,6 +82,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201304191014006_Updated Apartment.resx">
       <DependentUpon>201304191014006_Updated Apartment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201304200838181_Added apartment number.resx">
+      <DependentUpon>201304200838181_Added apartment number.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

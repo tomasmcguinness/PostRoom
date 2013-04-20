@@ -57,7 +57,7 @@ namespace PostRoom.Web.Controllers
         }
 
         [HttpGet]
-        public HttpResponseMessage Apartments(long estateId, long buildingId)
+        public HttpResponseMessage Apartments(long buildingId)
         {
             var apartmentList = propertyManager.GetApartmentsForBuilding(buildingId);
 
@@ -65,7 +65,7 @@ namespace PostRoom.Web.Controllers
 
             foreach (var apartment in apartmentList)
             {
-                modelList.Add(new ApartmentModel() { ApartmentId = apartment.ApartmentId, ApartmentNumber = 1 });
+                modelList.Add(new ApartmentModel() { ApartmentId = apartment.ApartmentId, ApartmentNumber = apartment.Number });
             }
 
             return new HttpResponseMessage(HttpStatusCode.OK)

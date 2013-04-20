@@ -1,6 +1,7 @@
 namespace PostRoom.Data.Migrations
 {
     using System;
+    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
@@ -17,20 +18,28 @@ namespace PostRoom.Data.Migrations
             var newEstate = new Estate() { Name = "Burrells Wharf" };
             context.Estates.AddOrUpdate(newEstate);
 
-            var house = new Building() { Name = "Slipway House", Estate = newEstate };
-            context.Buildings.AddOrUpdate(house);
+            var building = new Building() { Name = "Slipway House", Estate = newEstate };
+            context.Buildings.AddOrUpdate(building);
 
-            house = new Building() { Name = "Plate House", Estate = newEstate };
-            context.Buildings.AddOrUpdate(house);
+            building.Apartments = new List<Apartment>();
 
-            house = new Building() { Name = "Traffrail House", Estate = newEstate };
-            context.Buildings.AddOrUpdate(house);
+            for (int i = 1; i < 55; i++)
+            {
+                var apartment = new Apartment() { Number = i };
+                building.Apartments.Add(apartment);
+            }
 
-            house = new Building() { Name = "Chart House", Estate = newEstate };
-            context.Buildings.AddOrUpdate(house);
+            building = new Building() { Name = "Plate House", Estate = newEstate };
+            context.Buildings.AddOrUpdate(building);
 
-            house = new Building() { Name = "Wheel House", Estate = newEstate };
-            context.Buildings.AddOrUpdate(house);
+            building = new Building() { Name = "Traffrail House", Estate = newEstate };
+            context.Buildings.AddOrUpdate(building);
+
+            building = new Building() { Name = "Chart House", Estate = newEstate };
+            context.Buildings.AddOrUpdate(building);
+
+            building = new Building() { Name = "Wheel House", Estate = newEstate };
+            context.Buildings.AddOrUpdate(building);
 
             context.SaveChanges();
         }
