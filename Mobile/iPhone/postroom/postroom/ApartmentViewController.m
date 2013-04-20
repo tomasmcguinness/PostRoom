@@ -14,7 +14,8 @@
 
 @implementation ApartmentViewController
 
-
+@synthesize model;
+@synthesize settingsModel;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -23,6 +24,9 @@
     {
         self.model = [[ApartmentModel alloc] init];
         self.model.delegate = self;
+        
+        self.settingsModel = [[SettingsModel alloc] init];
+        self.settingsModel.delegate = self;
     }
     return self;
 }
@@ -67,6 +71,28 @@
     
 }
 
+#pragma mark - SettingsModelDelegate
+
+- (void)registeringApartmentStarted
+{
+    
+}
+
+- (void)registeringApartmentComplete
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Complete" message:@"You have been successfully registered at this address." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles: nil];
+    [alert show];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)registeringApartmentFailed
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Failed" message:@"You have not been registered at this address. Check your internet connection and try again."
+                                                   delegate:self cancelButtonTitle:@"Okay" otherButtonTitles: nil];
+    [alert show];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -97,7 +123,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    Apartment *apartment = [self.model.apartments objectAtIndex:indexPath.row];
+    [self.settingsModel registerUserInApartment:apartment.apartmentId];
 }
 
 @end

@@ -8,8 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol SettingsModelDelegate <NSObject>
+
+- (void)registeringApartmentStarted;
+- (void)registeringApartmentComplete;
+- (void)registeringApartmentFailed;
+
+@end
+
 @interface SettingsModel : NSObject
 
+@property (nonatomic) id<SettingsModelDelegate> delegate;
 @property (nonatomic, readonly) BOOL hasPropertySelected;
+
+- (void)registerUserInApartment:(NSNumber *)apartmentId;
 
 @end

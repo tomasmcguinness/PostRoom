@@ -10,7 +10,7 @@
 #import "ApartmentModel.h"
 #import "SettingsModel.h"
 
-@interface ApartmentViewController : UITableViewController<ApartmentModelDelegate>
+@interface ApartmentViewController : UITableViewController<ApartmentModelDelegate, SettingsModelDelegate>
 
 @property (nonatomic) ApartmentModel *model;
 @property (nonatomic) SettingsModel *settingsModel;
