@@ -8,21 +8,32 @@
 <hr />
 @{ int collapseGroup = 0; }
 <div class="accordion" id="accordion2">
-  @foreach (var building in Model)
-  {
-    <div class="accordion-group">
-      <div class="accordion-heading">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse_@collapseGroup">
-          @building.Name
-          <span class="badge badge-info" style="float: right;">????</span>
-        </a>
-      </div>
-      <div id="collapse_@collapseGroup" class="accordion-body collapse">
-        <div class="accordion-inner">
+    @foreach (var building in Model)
+    {
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse_@collapseGroup">
+                    @building.Name
+                    <span class="badge badge-info" style="float: right;">????</span>
+                </a>
+            </div>
+            <div id="collapse_@collapseGroup" class="accordion-body collapse">
+                <div class="accordion-inner">
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
     
-    { collapseGroup++; }
-  }
+        { collapseGroup++; }
+    }
 </div>
+@section script
+{
+    <script type="text/javascript">
+        $().ready(function () {
+
+            $('#collapse_2').on('shown', function () {
+
+            });
+        });
+    </script>
+}

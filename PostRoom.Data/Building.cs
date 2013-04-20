@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace PostRoom.Data
 {
-  public class Building
-  {
-    public long BuildingId { get; set; }
-    public string Name { get; set; }
+    public class Building
+    {
+        public long BuildingId { get; set; }
+        public string Name { get; set; }
 
-    public virtual ICollection<Apartment> Apartments { get; set; }
-    public virtual Estate Estate { get; set; }
-  }
+        public virtual ICollection<Apartment> Apartments { get; set; }
+        public virtual Estate Estate { get; set; }
+    }
 }

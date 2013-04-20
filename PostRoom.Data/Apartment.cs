@@ -10,5 +10,7 @@ namespace PostRoom.Data
     {
         public long ApartmentId { get; set; }
         public int Number { get; set; }
+
+        public virtual ICollection<Delivery> Deliveries { get; set; }
     }
 }

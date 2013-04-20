@@ -36,6 +36,7 @@
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -46,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Apartment.cs" />
     <Compile Include="Building.cs" />
+    <Compile Include="Delivery.cs" />
     <Compile Include="Estate.cs" />
     <Compile Include="Migrations\201304171627075_Initial Create.cs" />
     <Compile Include="Migrations\201304171627075_Initial Create.Designer.cs">
@@ -62,6 +64,10 @@
     <Compile Include="Migrations\201304200838181_Added apartment number.cs" />
     <Compile Include="Migrations\201304200838181_Added apartment number.Designer.cs">
       <DependentUpon>201304200838181_Added apartment number.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201304201304188_Added Post.cs" />
+    <Compile Include="Migrations\201304201304188_Added Post.Designer.cs">
+      <DependentUpon>201304201304188_Added Post.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PostRoomDataContext.cs" />
@@ -85,6 +91,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201304200838181_Added apartment number.resx">
       <DependentUpon>201304200838181_Added apartment number.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201304201304188_Added Post.resx">
+      <DependentUpon>201304201304188_Added Post.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
