@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Estate.h"
 
 @protocol EstateModelDelegate <NSObject>
 
@@ -17,6 +18,9 @@
 @end
 
 @interface EstateModel : NSObject
+
+@property (nonatomic) id<EstateModelDelegate> delegate;
+@property (nonatomic) NSArray *estates;
 
 - (void)loadEstates;
 

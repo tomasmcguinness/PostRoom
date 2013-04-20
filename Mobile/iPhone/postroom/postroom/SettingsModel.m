@@ -15,4 +15,9 @@
     return FALSE;
 }
 
+- (void)selectApartment:(NSNumber *)apartmentId
+{
+    
+}
+
 @end

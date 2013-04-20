@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EstateModel.h"
+#import "BuildingViewController.h"
 
-@interface PropertyViewController : UITableViewController
+@interface EstateViewController : UITableViewController<EstateModelDelegate>
+
+@property (nonatomic) EstateModel *model;
 
 @end

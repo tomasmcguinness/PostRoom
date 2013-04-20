@@ -9,10 +9,16 @@
 /* Begin PBXBuildFile section */
 		2CA3DB701721B04600401B40 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA3DB6F1721B04600401B40 /* CoreText.framework */; };
 		2CA3DB721721B05600401B40 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA3DB711721B05600401B40 /* QuartzCore.framework */; };
-		2CA3DB751721B31300401B40 /* PropertyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA3DB741721B31300401B40 /* PropertyViewController.m */; };
+		2CA3DB751721B31300401B40 /* EstateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA3DB741721B31300401B40 /* EstateViewController.m */; };
 		2CA3DB791721B5BC00401B40 /* SettingsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA3DB781721B5BC00401B40 /* SettingsModel.m */; };
 		2CA3DB7C17226FD200401B40 /* EstateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA3DB7B17226FD200401B40 /* EstateModel.m */; };
 		2CA3DB80172270AF00401B40 /* Estate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA3DB7F172270AF00401B40 /* Estate.m */; };
+		2CA3DB831722812900401B40 /* BuildingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA3DB821722812900401B40 /* BuildingViewController.m */; };
+		2CA3DB861722813900401B40 /* ApartmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA3DB851722813900401B40 /* ApartmentViewController.m */; };
+		2CA3DB891722815100401B40 /* BuildingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA3DB881722815100401B40 /* BuildingModel.m */; };
+		2CA3DB8C1722815D00401B40 /* ApartmentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA3DB8B1722815C00401B40 /* ApartmentModel.m */; };
+		2CA3DB8F1722828200401B40 /* Building.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA3DB8E1722828200401B40 /* Building.m */; };
+		2CA3DB921722851B00401B40 /* Apartment.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA3DB911722851B00401B40 /* Apartment.m */; };
 		2CFED3B217212B4D00A5E599 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CFED3B117212B4D00A5E599 /* UIKit.framework */; };
 		2CFED3B417212B4D00A5E599 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CFED3B317212B4D00A5E599 /* Foundation.framework */; };
 		2CFED3B617212B4D00A5E599 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CFED3B517212B4D00A5E599 /* CoreGraphics.framework */; };
@@ -47,14 +53,26 @@
 /* Begin PBXFileReference section */
 		2CA3DB6F1721B04600401B40 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		2CA3DB711721B05600401B40 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		2CA3DB731721B31300401B40 /* PropertyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropertyViewController.h; sourceTree = "<group>"; };
-		2CA3DB741721B31300401B40 /* PropertyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PropertyViewController.m; sourceTree = "<group>"; };
+		2CA3DB731721B31300401B40 /* EstateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EstateViewController.h; sourceTree = "<group>"; };
+		2CA3DB741721B31300401B40 /* EstateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EstateViewController.m; sourceTree = "<group>"; };
 		2CA3DB771721B5BC00401B40 /* SettingsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsModel.h; sourceTree = "<group>"; };
 		2CA3DB781721B5BC00401B40 /* SettingsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsModel.m; sourceTree = "<group>"; };
 		2CA3DB7A17226FD200401B40 /* EstateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EstateModel.h; sourceTree = "<group>"; };
 		2CA3DB7B17226FD200401B40 /* EstateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EstateModel.m; sourceTree = "<group>"; };
 		2CA3DB7E172270AF00401B40 /* Estate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Estate.h; sourceTree = "<group>"; };
 		2CA3DB7F172270AF00401B40 /* Estate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Estate.m; sourceTree = "<group>"; };
+		2CA3DB811722812900401B40 /* BuildingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuildingViewController.h; sourceTree = "<group>"; };
+		2CA3DB821722812900401B40 /* BuildingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuildingViewController.m; sourceTree = "<group>"; };
+		2CA3DB841722813900401B40 /* ApartmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApartmentViewController.h; sourceTree = "<group>"; };
+		2CA3DB851722813900401B40 /* ApartmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApartmentViewController.m; sourceTree = "<group>"; };
+		2CA3DB871722815100401B40 /* BuildingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuildingModel.h; sourceTree = "<group>"; };
+		2CA3DB881722815100401B40 /* BuildingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuildingModel.m; sourceTree = "<group>"; };
+		2CA3DB8A1722815C00401B40 /* ApartmentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApartmentModel.h; sourceTree = "<group>"; };
+		2CA3DB8B1722815C00401B40 /* ApartmentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApartmentModel.m; sourceTree = "<group>"; };
+		2CA3DB8D1722828200401B40 /* Building.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Building.h; sourceTree = "<group>"; };
+		2CA3DB8E1722828200401B40 /* Building.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Building.m; sourceTree = "<group>"; };
+		2CA3DB901722851B00401B40 /* Apartment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Apartment.h; sourceTree = "<group>"; };
+		2CA3DB911722851B00401B40 /* Apartment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Apartment.m; sourceTree = "<group>"; };
 		2CFED3AE17212B4D00A5E599 /* postroom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = postroom.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CFED3B117212B4D00A5E599 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2CFED3B317212B4D00A5E599 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -113,10 +131,14 @@
 		2CA3DB761721B5A600401B40 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				2CA3DB771721B5BC00401B40 /* SettingsModel.h */,
-				2CA3DB781721B5BC00401B40 /* SettingsModel.m */,
+				2CA3DB8A1722815C00401B40 /* ApartmentModel.h */,
+				2CA3DB8B1722815C00401B40 /* ApartmentModel.m */,
+				2CA3DB871722815100401B40 /* BuildingModel.h */,
+				2CA3DB881722815100401B40 /* BuildingModel.m */,
 				2CA3DB7A17226FD200401B40 /* EstateModel.h */,
 				2CA3DB7B17226FD200401B40 /* EstateModel.m */,
+				2CA3DB771721B5BC00401B40 /* SettingsModel.h */,
+				2CA3DB781721B5BC00401B40 /* SettingsModel.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -124,6 +146,10 @@
 		2CA3DB7D172270A000401B40 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				2CA3DB901722851B00401B40 /* Apartment.h */,
+				2CA3DB911722851B00401B40 /* Apartment.m */,
+				2CA3DB8D1722828200401B40 /* Building.h */,
+				2CA3DB8E1722828200401B40 /* Building.m */,
 				2CA3DB7E172270AF00401B40 /* Estate.h */,
 				2CA3DB7F172270AF00401B40 /* Estate.m */,
 			);
@@ -213,12 +239,16 @@
 		2CFED3EC17212DAB00A5E599 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				2CA3DB841722813900401B40 /* ApartmentViewController.h */,
+				2CA3DB851722813900401B40 /* ApartmentViewController.m */,
+				2CA3DB811722812900401B40 /* BuildingViewController.h */,
+				2CA3DB821722812900401B40 /* BuildingViewController.m */,
+				2CA3DB731721B31300401B40 /* EstateViewController.h */,
+				2CA3DB741721B31300401B40 /* EstateViewController.m */,
 				2CFED3ED17212DC700A5E599 /* PostViewController.h */,
 				2CFED3EE17212DC700A5E599 /* PostViewController.m */,
 				2CFED3F017212F8700A5E599 /* SettingsViewController.h */,
 				2CFED3F117212F8700A5E599 /* SettingsViewController.m */,
-				2CA3DB731721B31300401B40 /* PropertyViewController.h */,
-				2CA3DB741721B31300401B40 /* PropertyViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -337,10 +367,16 @@
 				2CFED3CD17212B4D00A5E599 /* postroom.xcdatamodeld in Sources */,
 				2CFED3EF17212DC700A5E599 /* PostViewController.m in Sources */,
 				2CFED3F217212F8700A5E599 /* SettingsViewController.m in Sources */,
-				2CA3DB751721B31300401B40 /* PropertyViewController.m in Sources */,
+				2CA3DB751721B31300401B40 /* EstateViewController.m in Sources */,
 				2CA3DB791721B5BC00401B40 /* SettingsModel.m in Sources */,
 				2CA3DB7C17226FD200401B40 /* EstateModel.m in Sources */,
 				2CA3DB80172270AF00401B40 /* Estate.m in Sources */,
+				2CA3DB831722812900401B40 /* BuildingViewController.m in Sources */,
+				2CA3DB861722813900401B40 /* ApartmentViewController.m in Sources */,
+				2CA3DB891722815100401B40 /* BuildingModel.m in Sources */,
+				2CA3DB8C1722815D00401B40 /* ApartmentModel.m in Sources */,
+				2CA3DB8F1722828200401B40 /* Building.m in Sources */,
+				2CA3DB921722851B00401B40 /* Apartment.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

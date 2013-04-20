@@ -1,5 +1,5 @@
 //
-//  Estate.h
+//  Building.h
 //  postroom
 //
 //  Created by Tomas McGuinness on 20/04/2013.
@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Estate : NSObject
+@interface Building : NSObject
 
-@property (nonatomic) NSNumber *estateId;
+@property (nonatomic) NSNumber *buildingId;
 @property (nonatomic) NSString *name;
 
 @end

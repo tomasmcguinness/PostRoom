@@ -102,7 +102,7 @@
 
 - (void)handlePropertyCellClick:(NSIndexPath *)indexPath
 {
-    PropertyViewController *propertyViewController = [[PropertyViewController alloc] initWithStyle:UITableViewStylePlain];
+    EstateViewController *propertyViewController = [[EstateViewController alloc] initWithStyle:UITableViewStylePlain];
     UINavigationController *propertyNavViewController = [[UINavigationController alloc] initWithRootViewController:propertyViewController];
     
     if(self.model.hasPropertySelected)

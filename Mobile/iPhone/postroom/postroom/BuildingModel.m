@@ -1,23 +1,23 @@
 //
-//  EstateModel.m
+//  BuildingModel.m
 //  postroom
 //
 //  Created by Tomas McGuinness on 20/04/2013.
 //  Copyright (c) 2013 com.boldbear. All rights reserved.
 //
 
-#import "EstateModel.h"
+#import "BuildingModel.h"
 
-@implementation EstateModel
+@implementation BuildingModel
 
+@synthesize buildings;
 @synthesize delegate;
-@synthesize estates;
 
-- (void)loadEstates
+- (void)loadBuildings:(NSNumber *)estateId
 {
-    [self.delegate estateLoadingStarted];
+    [self.delegate buildingLoadingStarted];
     
-    NSString *url = @"http://postroom.azurewebsites.net/api/property/estates";
+    NSString *url = [NSString stringWithFormat:@"http://postroom.azurewebsites.net/api/property/buildings?estateId=%@", estateId];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
     NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     
@@ -29,7 +29,7 @@
          {
              NSLog(@"Error getting response: %@", [error localizedDescription]);
              dispatch_async(dispatch_get_main_queue(), ^{
-                 [self.delegate estateLoadingFailed];
+                 [self.delegate buildingLoadingFailed];
              });
          }
          else
@@ -40,30 +40,30 @@
              if(httpResp.statusCode == 200)
              {
                  NSError *error;
-                 NSArray *estateArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                 NSArray *buildingArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
                  
-                 NSMutableArray *downloadedEstates = [[NSMutableArray alloc] initWithCapacity:estates.count];
+                 NSMutableArray *downloadedBuildings = [[NSMutableArray alloc] initWithCapacity:buildingArray.count];
                  
-                 for(NSDictionary *estateItem in estateArray)
+                 for(NSDictionary *estateItem in buildingArray)
                  {
-                     Estate *model = [[Estate alloc] init];
-                 
-                     model.estateId = [estateItem valueForKey:@"EstateId"];
+                     Building *model = [[Building alloc] init];
+                     
+                     model.buildingId = [estateItem valueForKey:@"BuildingId"];
                      model.name = [estateItem valueForKey:@"Name"];
-                 
-                     [downloadedEstates addObject:model];
+                     
+                     [downloadedBuildings addObject:model];
                  }
                  
-                 self.estates = [[NSArray alloc] initWithArray:downloadedEstates];
+                 self.buildings = [[NSArray alloc] initWithArray:downloadedBuildings];
                  
                  dispatch_async(dispatch_get_main_queue(), ^{
-                     [self.delegate estateLoadingComplete];
+                     [self.delegate buildingLoadingComplete];
                  });
              }
              else
              {
                  dispatch_async(dispatch_get_main_queue(), ^{
-                     [self.delegate estateLoadingStarted];
+                     [self.delegate buildingLoadingFailed];
                  });
              }
          }
