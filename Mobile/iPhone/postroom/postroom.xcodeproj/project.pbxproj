@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C9B2DF517284DD4002F93B6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C9B2DF417284DD4002F93B6 /* CoreLocation.framework */; };
+		2C9B2DF717285698002F93B6 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C9B2DF617285698002F93B6 /* CoreAudio.framework */; };
 		2CA3DB701721B04600401B40 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA3DB6F1721B04600401B40 /* CoreText.framework */; };
 		2CA3DB721721B05600401B40 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA3DB711721B05600401B40 /* QuartzCore.framework */; };
 		2CA3DB751721B31300401B40 /* EstateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA3DB741721B31300401B40 /* EstateViewController.m */; };
@@ -54,6 +56,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C9B2DF417284DD4002F93B6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		2C9B2DF617285698002F93B6 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		2CA3DB6F1721B04600401B40 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		2CA3DB711721B05600401B40 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		2CA3DB731721B31300401B40 /* EstateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EstateViewController.h; sourceTree = "<group>"; };
@@ -80,7 +84,7 @@
 		2CA3DB941722994C00401B40 /* PostModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostModel.m; sourceTree = "<group>"; };
 		2CA3DB961722A56600401B40 /* letter_closed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "letter_closed@2x.png"; sourceTree = "<group>"; };
 		2CA3DB981722A61000401B40 /* cog_02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cog_02@2x.png"; sourceTree = "<group>"; };
-		2CFED3AE17212B4D00A5E599 /* postroom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = postroom.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CFED3AE17212B4D00A5E599 /* Post Room.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Post Room.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CFED3B117212B4D00A5E599 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2CFED3B317212B4D00A5E599 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2CFED3B517212B4D00A5E599 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -112,6 +116,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C9B2DF717285698002F93B6 /* CoreAudio.framework in Frameworks */,
+				2C9B2DF517284DD4002F93B6 /* CoreLocation.framework in Frameworks */,
 				2CA3DB721721B05600401B40 /* QuartzCore.framework in Frameworks */,
 				2CA3DB701721B04600401B40 /* CoreText.framework in Frameworks */,
 				2CFED3B217212B4D00A5E599 /* UIKit.framework in Frameworks */,
@@ -144,10 +150,10 @@
 				2CA3DB881722815100401B40 /* BuildingModel.m */,
 				2CA3DB7A17226FD200401B40 /* EstateModel.h */,
 				2CA3DB7B17226FD200401B40 /* EstateModel.m */,
-				2CA3DB771721B5BC00401B40 /* SettingsModel.h */,
-				2CA3DB781721B5BC00401B40 /* SettingsModel.m */,
 				2CA3DB931722994C00401B40 /* PostModel.h */,
 				2CA3DB941722994C00401B40 /* PostModel.m */,
+				2CA3DB771721B5BC00401B40 /* SettingsModel.h */,
+				2CA3DB781721B5BC00401B40 /* SettingsModel.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -168,6 +174,8 @@
 		2CFED3A517212B4D00A5E599 = {
 			isa = PBXGroup;
 			children = (
+				2C9B2DF617285698002F93B6 /* CoreAudio.framework */,
+				2C9B2DF417284DD4002F93B6 /* CoreLocation.framework */,
 				2CA3DB711721B05600401B40 /* QuartzCore.framework */,
 				2CA3DB6F1721B04600401B40 /* CoreText.framework */,
 				2CFED3B917212B4D00A5E599 /* postroom */,
@@ -180,7 +188,7 @@
 		2CFED3AF17212B4D00A5E599 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2CFED3AE17212B4D00A5E599 /* postroom.app */,
+				2CFED3AE17212B4D00A5E599 /* Post Room.app */,
 				2CFED3D317212B4D00A5E599 /* postroomTests.octest */,
 			);
 			name = Products;
@@ -281,7 +289,7 @@
 			);
 			name = postroom;
 			productName = postroom;
-			productReference = 2CFED3AE17212B4D00A5E599 /* postroom.app */;
+			productReference = 2CFED3AE17212B4D00A5E599 /* Post Room.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2CFED3D217212B4D00A5E599 /* postroomTests */ = {
@@ -494,7 +502,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "postroom/postroom-Prefix.pch";
 				INFOPLIST_FILE = "postroom/postroom-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Post Room";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -505,7 +513,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "postroom/postroom-Prefix.pch";
 				INFOPLIST_FILE = "postroom/postroom-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Post Room";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

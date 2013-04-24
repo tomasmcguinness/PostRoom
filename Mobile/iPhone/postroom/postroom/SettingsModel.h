@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
+#import <CoreAudio/CoreAudioTypes.h>
 
 @protocol SettingsModelDelegate <NSObject>
 
@@ -16,11 +18,16 @@
 
 @end
 
-@interface SettingsModel : NSObject
+@interface SettingsModel : NSObject<CLLocationManagerDelegate>
+{
+    @private
+    UIBackgroundTaskIdentifier bgTask;
+}
 
 @property (nonatomic) id<SettingsModelDelegate> delegate;
 @property (nonatomic) NSString *apartmentName;
 @property (nonatomic, readonly) BOOL hasPropertySelected;
+@property (nonatomic, strong) CLLocationManager *locationManager;
 
 - (void)registerUserInApartment:(NSNumber *)apartmentId;
 - (void)registerForNotificationsOfNewPost;

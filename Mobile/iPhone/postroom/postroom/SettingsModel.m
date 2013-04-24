@@ -11,6 +11,7 @@
 @implementation SettingsModel
 
 @synthesize delegate;
+@synthesize locationManager;
 
 - (NSString *)apartmentName
 {
@@ -41,6 +42,14 @@
 {
     [self.delegate registeringApartmentStarted];
     
+#ifdef DEBUG
+    
+    [self updateUserRegistrationSettings:apartmentId];
+    [self.delegate registeringApartmentComplete];
+    return;
+    
+#endif
+    
     NSUUID *uniqueIdentifier = [[UIDevice currentDevice] identifierForVendor];
     
     NSString *url = [NSString stringWithFormat:@"http://postroom.azurewebsites.net/api/resident?apartmentId=%@&uniqueUserIdentifier=%@", apartmentId, [uniqueIdentifier UUIDString]];
@@ -67,10 +76,7 @@
              
              if(httpResp.statusCode == 200)
              {
-                 [[NSUserDefaults standardUserDefaults] setObject:apartmentId forKey:@"ApartmentId"];
-                 [[NSUserDefaults standardUserDefaults] synchronize];
-                 
-                 [self registerForNotificationsOfNewPost];
+                 [self updateUserRegistrationSettings:apartmentId];
                  
                  dispatch_async(dispatch_get_main_queue(), ^{
                      [self.delegate registeringApartmentComplete];
@@ -86,9 +92,49 @@
      }];
 }
 
+- (void)updateUserRegistrationSettings:(NSNumber *)apartmentId
+{
+    [[NSUserDefaults standardUserDefaults] setObject:apartmentId forKey:@"ApartmentId"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [self registerForNotificationsOfNewPost];
+}
+
 - (void)registerForNotificationsOfNewPost
 {
+    [self registerForPushNotifications];
+    [self registerForLocationNotifications];
+}
+
+- (void)registerForLocationNotifications
+{
+    if ( ![CLLocationManager regionMonitoringAvailable] )
+    {
+        NSLog(@"Region monitoring isn't available!");
+        return;
+    }
+    
+    if(self.locationManager == nil)
+    {
+        self.locationManager = [[CLLocationManager alloc] init];
+        self.locationManager.delegate = self;
+    }
+    
+    CLLocationDegrees radius = 10.0;
+    
+    //51.487641,-0.019782
+    CLLocationCoordinate2D location = CLLocationCoordinate2DMake(51.487641, -0.019782);
+    
+    // Create the region and start monitoring it.
+    CLRegion* region = [[CLRegion alloc] initCircularRegionWithCenter:location radius:radius identifier:@"Estate"];
+    [self.locationManager startMonitoringForRegion:region];
+}
+
+- (void)registerForPushNotifications
+{
+#ifndef DEBUG
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge];
+#endif
 }
 
 - (void)storeNotificationDeviceIdentifier:(NSString *)deviceIdentifier
@@ -98,7 +144,8 @@
     
     NSUUID *uniqueIdentifier = [[UIDevice currentDevice] identifierForVendor];
     
-    NSString *url = [NSString stringWithFormat:@"http://postroom.azurewebsites.net/api/resident?uniqueUserIdentifier=%@&deviceIdentifier=%@&alertOnNewPackage=true", [uniqueIdentifier UUIDString], deviceIdentifier];
+    NSString *format = @"http://postroom.azurewebsites.net/api/resident?uniqueUserIdentifier=%@&deviceIdentifier=%@&alertOnNewPackage=true";
+    NSString *url = [NSString stringWithFormat:format, [uniqueIdentifier UUIDString], deviceIdentifier];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
     [request setHTTPMethod:@"POST"];
@@ -136,6 +183,47 @@
          }
      }];
     
+}
+
+#pragma mark - CLLocationManagerDelegate
+
+- (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error
+{
+    NSLog(@"Region monitoring failed: %@", [error localizedDescription]);
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(@"Location monitoring failed: %@", [error localizedDescription]);
+}
+
+- (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region
+{
+    NSLog(@"Region around estate is being monitored");
+}
+
+- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
+{
+    NSLog(@"Nearing estate. Checking for post...");
+    UIApplication *app = [UIApplication sharedApplication];
+    bgTask = [app beginBackgroundTaskWithExpirationHandler:^{
+        [app endBackgroundTask:bgTask];
+        bgTask = UIBackgroundTaskInvalid;
+    }];
+    
+    UILocalNotification *localNotif = [[UILocalNotification alloc] init];
+    localNotif.alertBody = @"You have 2 packages ready for collection";
+    localNotif.soundName = UILocalNotificationDefaultSoundName;
+    localNotif.applicationIconBadgeNumber = 2;
+    
+    [[UIApplication sharedApplication] presentLocalNotificationNow:localNotif];
+    
+    // Check for post.
+}
+
+- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
+{
+    NSLog(@"Leaving estate.");
 }
 
 @end

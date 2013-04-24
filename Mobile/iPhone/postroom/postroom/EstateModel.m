@@ -17,6 +17,23 @@
 {
     [self.delegate estateLoadingStarted];
     
+#if DEBUG
+    
+    NSMutableArray *downloadedEstates = [[NSMutableArray alloc] initWithCapacity:1];
+    
+    Estate *model = [[Estate alloc] init];
+    
+    model.estateId = [NSNumber numberWithInt:1];
+    model.name = @"Building Name";
+    
+    [downloadedEstates addObject:model];
+    
+    self.estates = [[NSArray alloc] initWithArray:downloadedEstates];
+    
+    return;
+
+#endif
+    
     NSString *url = @"http://postroom.azurewebsites.net/api/property/estates";
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
     NSOperationQueue *queue = [[NSOperationQueue alloc] init];
