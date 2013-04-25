@@ -38,7 +38,7 @@ namespace PostRoom.Management
 
         public int GetNumberOfItemsToCollection(string uniqueUserIdentifier)
         {
-            return 0;
+            return 19;
         }
     }
 }
