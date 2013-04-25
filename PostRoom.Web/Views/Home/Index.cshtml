@@ -1,46 +1,44 @@
 ﻿@{
-  ViewBag.Title = "Index";
-  Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <!-- Main hero unit for a primary marketing message or call to action -->
 <div class="hero-unit">
-  <h1>Hello, world!</h1>
-  <p>
-    This is a template for a simple marketing or informational website. It includes
-    a large callout called the hero unit and three supporting pieces of content. Use
-    it as a starting point to create something more unique.
-  </p>
-  <p><a href="#" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+    <h1>Get Your Post Room Under Control</h1>
+    <p>
+        Post Room is a service designed for housing complexes, businesses and universities. 
+        It allows you to track all incoming mail items and inform people they have deliveries.
+    </p>
+    <p><a href="@Url.Action("Index","Estate")" class="btn btn-primary btn-large">View Demo &raquo;</a></p>
 </div>
 
 <!-- Example row of columns -->
 <div class="row">
-  <div class="span4">
-    <h2>Heading</h2>
-    <p>
-      Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus
-      commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-      Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-    </p>
-    <p><a class="btn" href="#">View details &raquo;</a></p>
-  </div>
-  <div class="span4">
-    <h2>Heading</h2>
-    <p>
-      Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus
-      commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-      Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-    </p>
-    <p><a class="btn" href="#">View details &raquo;</a></p>
-  </div>
-  <div class="span4">
-    <h2>Heading</h2>
-    <p>
-      Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-      Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus
-      commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-    </p>
-    <p><a class="btn" href="#">View details &raquo;</a></p>
-  </div>
+    <div class="span4">
+        <h2>Full Control</h2>
+        <p>
+            Track the arrival and collection of all mail items received by your post room.
+            You will know what items you have at all times. This is useful around the busiest 
+            postal periods such as Christmas.
+        </p>
+        @*<p><a class="btn" href="#">View details &raquo;</a></p>*@
+    </div>
+    <div class="span4">
+        <h2>Inform Recipients</h2>
+        <p>
+            Recipients that are using the Post Room iOS app will be automatically notified each
+            time a package arrives. They can also set reminders for themselves, so they don't leave their 
+            postal items for too long before collection.
+        </p>
+        @*<p><a class="btn" href="#">View details &raquo;</a></p>*@
+    </div>
+    <div class="span4">
+        <h2>Safe & Secure</h2>
+        <p>
+            Post Room is designed and built with security in mind. All connections are secured using HTTPs
+            and access is managed using two-factor authentication.
+        </p>
+        @*<p><a class="btn" href="#">View details &raquo;</a></p>*@
+    </div>
 </div>

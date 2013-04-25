@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Burrells Wharf</h2>
+<div id="chart_div" style="width: 1200px; height: 400px;"></div>
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    google.load("visualization", "1", { packages: ["corechart"] });
+    google.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Month', 'Deliveries', 'Collections'],
+          ['APR', 1030, 540],
+          ['APR', 1030, 540],
+          ['APR', 1030, 540],
+          ['APR', 1030, 540],
+          ['APR', 1030, 540],
+          ['JAN', 1000, 400],
+          ['FEB', 1170, 460],
+          ['MAR', 660, 1120],
+          ['APR', 1030, 540]
+        ]);
+
+        var options = {
+            title: 'Delivery & Collection History'
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+    }
+</script>
+

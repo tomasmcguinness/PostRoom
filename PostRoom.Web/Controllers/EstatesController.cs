@@ -8,13 +8,9 @@ namespace PostRoom.Web.Controllers
 {
     public class EstatesController : Controller
     {
-        //
-        // GET: /Estates/
-
         public ActionResult Index()
         {
             return View();
         }
-
     }
 }
