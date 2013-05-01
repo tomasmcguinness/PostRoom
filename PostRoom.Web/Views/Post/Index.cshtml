@@ -1,4 +1,4 @@
-﻿@model List<PostRoom.Data.Building>
+﻿@model System.Int64
 <h2>Post
  <a href="#myModal" role="button" class="btn" data-toggle="modal" style="float: right; margin-left: 5px;">
      <i class="icon-plus"></i>
@@ -6,25 +6,32 @@
     @*<button class="btn" style="float: right;"><i class="icon-minus"></i>Record Collection</button>*@
 </h2>
 <hr />
-@{ int collapseGroup = 0; }
-<div class="accordion" id="accordion2">
-    @foreach (var building in Model)
-    {
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse_@collapseGroup">
-                    @building.Name
-                    <span class="badge badge-info" style="float: right;">????</span>
-                </a>
-            </div>
-            <div id="collapse_@collapseGroup" class="accordion-body collapse">
-                <div class="accordion-inner">
+<div class="accordion" id="accordion2" data-bind="foreach: buildings">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse" data-bind="click: loadApartments">
+                <span data-bind="text: name"></span>
+                <span class="badge badge-info" style="float: right;" data-bind="text: totalPackages"><i class="icon-spinner icon-spin"></i></span>
+            </a>
+        </div>
+        <div class="accordion-body" data-bind="css: { collapse: showApartments() === false }">
+            <div class="accordion-inner">
+                <div data-bind="visible: loadingApartments">
+                    <i class="icon-spinner icon-spin"></i>&#186;Loading Apartment List...
                 </div>
+                <table class="table table-bordered" data-bind="visible: loadingApartments() === false">
+                    <tbody data-bind="foreach: apartments">
+                        <tr>
+                            <td>
+                                <span data-bind="text: number"></span>
+                                <span class="badge badge-info" style="float: right;">2</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-    
-        { collapseGroup++; }
-    }
+    </div>
 </div>
 
 <div id="myModal" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -44,8 +51,88 @@
 @section script
 {
     <script type="text/javascript">
+
+        var model = new postModel();
+
+        function postModel() {
+            var self = this;
+            self.buildings = ko.observableArray();
+        };
+
+        function buildingModel() {
+            var self = this;
+
+            self.buildingId = ko.observable();
+            self.name = ko.observable();
+            self.totalPackages = ko.observable();
+            self.showApartments = ko.observable(false);
+            self.loadingApartments = ko.observable(false);
+            self.apartments = ko.observableArray();
+
+            self.load = function () {
+                $.ajax({
+                    type: "Get",
+                    url: "@Url.Action("OutstandingPackages")?buildingId=" + self.buildingId(),
+                    dataType: "json"
+                }).done(function (data) {
+                    self.totalPackages(data);
+                });
+            };
+
+            self.loadApartments = function () {
+
+                self.showApartments(!self.showApartments());
+
+                if (self.showApartments()) {
+
+                    self.loadingApartments(true);
+
+                    $.ajax({
+                        type: "Get",
+                        url: "@Url.Action("Apartments")?buildingId=" + self.buildingId(),
+                        dataType: "json"
+                    }).done(function (data) {
+
+                        for (var i = 0; i < data.length; i++) {
+                            var apartment = new apartmentModel();
+                            apartment.number(data[i].Number);
+                            self.apartments.push(apartment);
+                        }
+
+                        self.loadingApartments(false);
+                    });
+                }
+            };
+        };
+
+        function apartmentModel() {
+            var self = this;
+
+            self.number = ko.observable();
+        };
+
         $().ready(function () {
-            $('#collapse_2').on('shown', function () {
+
+            ko.applyBindings(model);
+
+            $.ajax({
+                type: "Get",
+                url: "@Url.Action("Post", new { estateId = Model })",
+                dataType: "json"
+            }).done(function (data) {
+
+                if (data == null) {
+                    return;
+                }
+
+                for (var i = 0; i < data.length; i++) {
+                    var building = new buildingModel();
+                    building.buildingId(data[i].BuildingId);
+                    building.name(data[i].Name);
+                    model.buildings.push(building);
+
+                    building.load();
+                }
 
             });
         });
