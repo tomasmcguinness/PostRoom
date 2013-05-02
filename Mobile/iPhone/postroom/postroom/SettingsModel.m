@@ -13,6 +13,17 @@
 @synthesize delegate;
 @synthesize locationManager;
 
+- (id)init
+{
+    self = [super init];
+    
+    if(self)
+    {
+    }
+    
+    return self;
+}
+
 - (NSString *)apartmentName
 {
     if(self.hasPropertySelected)
@@ -210,20 +221,21 @@
         [app endBackgroundTask:bgTask];
         bgTask = UIBackgroundTaskInvalid;
     }];
-    
-    UILocalNotification *localNotif = [[UILocalNotification alloc] init];
-    localNotif.alertBody = @"You have 2 packages ready for collection";
-    localNotif.soundName = UILocalNotificationDefaultSoundName;
-    localNotif.applicationIconBadgeNumber = 2;
-    
-    [[UIApplication sharedApplication] presentLocalNotificationNow:localNotif];
-    
-    // Check for post.
 }
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
 {
     NSLog(@"Leaving estate.");
+}
+
+- (void)updatePostComplete
+{
+//    UILocalNotification *localNotif = [[UILocalNotification alloc] init];
+//    localNotif.alertBody = [NSString stringWithFormat:@"You have %@ packages ready for collection", self.postModel.numberOfItems];
+//    localNotif.soundName = UILocalNotificationDefaultSoundName;
+//    localNotif.applicationIconBadgeNumber = [self.postModel.numberOfItems intValue];
+//    
+//    [[UIApplication sharedApplication] presentLocalNotificationNow:localNotif];
 }
 
 @end

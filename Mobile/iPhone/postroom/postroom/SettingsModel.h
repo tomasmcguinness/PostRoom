@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import <CoreAudio/CoreAudioTypes.h>
+#import "PostModel.h"
 
 @protocol SettingsModelDelegate <NSObject>
 

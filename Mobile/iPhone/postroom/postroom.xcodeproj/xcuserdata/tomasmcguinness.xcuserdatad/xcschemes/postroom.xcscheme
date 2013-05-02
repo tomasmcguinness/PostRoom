@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2CFED3AD17212B4D00A5E599"
-               BuildableName = "postroom.app"
+               BuildableName = "Post Room.app"
                BlueprintName = "postroom"
                ReferencedContainer = "container:postroom.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2CFED3AD17212B4D00A5E599"
-            BuildableName = "postroom.app"
+            BuildableName = "Post Room.app"
             BlueprintName = "postroom"
             ReferencedContainer = "container:postroom.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2CFED3AD17212B4D00A5E599"
-            BuildableName = "postroom.app"
+            BuildableName = "Post Room.app"
             BlueprintName = "postroom"
             ReferencedContainer = "container:postroom.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2CFED3AD17212B4D00A5E599"
-            BuildableName = "postroom.app"
+            BuildableName = "Post Room.app"
             BlueprintName = "postroom"
             ReferencedContainer = "container:postroom.xcodeproj">
          </BuildableReference>

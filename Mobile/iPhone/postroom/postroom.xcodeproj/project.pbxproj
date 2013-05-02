@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C52B78017324C2D0076F37F /* NotificationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C52B77F17324C2D0076F37F /* NotificationModel.m */; };
 		2C9B2DF517284DD4002F93B6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C9B2DF417284DD4002F93B6 /* CoreLocation.framework */; };
 		2C9B2DF717285698002F93B6 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C9B2DF617285698002F93B6 /* CoreAudio.framework */; };
 		2CA3DB701721B04600401B40 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CA3DB6F1721B04600401B40 /* CoreText.framework */; };
@@ -56,6 +57,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C52B77E17324C2D0076F37F /* NotificationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationModel.h; sourceTree = "<group>"; };
+		2C52B77F17324C2D0076F37F /* NotificationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationModel.m; sourceTree = "<group>"; };
 		2C9B2DF417284DD4002F93B6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		2C9B2DF617285698002F93B6 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		2CA3DB6F1721B04600401B40 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
@@ -150,6 +153,8 @@
 				2CA3DB881722815100401B40 /* BuildingModel.m */,
 				2CA3DB7A17226FD200401B40 /* EstateModel.h */,
 				2CA3DB7B17226FD200401B40 /* EstateModel.m */,
+				2C52B77E17324C2D0076F37F /* NotificationModel.h */,
+				2C52B77F17324C2D0076F37F /* NotificationModel.m */,
 				2CA3DB931722994C00401B40 /* PostModel.h */,
 				2CA3DB941722994C00401B40 /* PostModel.m */,
 				2CA3DB771721B5BC00401B40 /* SettingsModel.h */,
@@ -399,6 +404,7 @@
 				2CA3DB8F1722828200401B40 /* Building.m in Sources */,
 				2CA3DB921722851B00401B40 /* Apartment.m in Sources */,
 				2CA3DB951722994D00401B40 /* PostModel.m in Sources */,
+				2C52B78017324C2D0076F37F /* NotificationModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
