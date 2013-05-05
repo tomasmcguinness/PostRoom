@@ -8,6 +8,9 @@
  <a href="#recordDeliveryModal" role="button" class="btn" data-toggle="modal" style="float: right; margin-left: 5px;">
      <i class="icon-plus"></i>
      Record Delivery</a>
+
+    <a href="#" class="btn" style="float: right; margin-left: 5px;" data-bind="click: loadBuildings"><i class="icon-refresh"></i>
+    </a>
     @*<button class="btn" style="float: right;"><i class="icon-minus"></i>Record Collection</button>*@
 </h2>
 <hr />
@@ -123,6 +126,45 @@
             self.isLoading = ko.observable();
             self.buildings = ko.observableArray();
             self.recordDelivery = new recordDeliveryModal();
+
+            self.loadBuildings = function () {
+
+                self.isLoading(true);
+
+                $.ajax({
+                    type: "Get",
+                    url: "@Url.Action("Post", new { estateId = Model })",
+                    dataType: "json"
+                }).done(function (data) {
+
+                    self.isLoading(false);
+                    self.buildings.removeAll();
+
+                    if (data == null) {
+                        return;
+                    }
+
+                    for (var i = 0; i < data.length; i++) {
+                        var building = new buildingModel();
+                        building.buildingId(data[i].BuildingId);
+                        building.name(data[i].Name);
+
+                        self.buildings.push(building);
+
+                        building.load();
+                    }
+                });
+            };
+        };
+
+        function apartmentModel() {
+            var self = this;
+
+            self.number = ko.observable();
+
+            self.showUpdateDialog = function () {
+                $("#updateApartmentDeliveriesModal").modal();
+            };
         };
 
         function buildingModel() {
@@ -156,10 +198,11 @@
 
                     $.ajax({
                         type: "Get",
-                        url: "@Url.Action("Apartments")?buildingId=" + self.buildingId(),
+                        url: "@Url.Action("Apartments")",
+                        data: { buildingId: self.buildingId() },
                         dataType: "json"
                     }).done(function (data) {
-
+                        alert(data.length + " apartments loaded");
                         for (var i = 0; i < data.length; i++) {
                             var apartment = new apartmentModel();
                             apartment.number(data[i].Number);
@@ -167,18 +210,10 @@
                         }
 
                         self.loadingApartments(false);
+                    }).fail(function (req, message, error) {
+                        alert("Failed to load apartments:" + error);
                     });
                 }
-            };
-        };
-
-        function apartmentModel() {
-            var self = this;
-
-            self.number = ko.observable();
-
-            self.showUpdateDialog = function () {
-                $("#updateApartmentDeliveriesModal").modal();
             };
         };
 
@@ -207,31 +242,7 @@
             });
 
             ko.applyBindings(model);
-
-            model.isLoading(true);
-
-            $.ajax({
-                type: "Get",
-                url: "@Url.Action("Post", new { estateId = Model })",
-            dataType: "json"
-        }).done(function (data) {
-
-            model.isLoading(false);
-
-            if (data == null) {
-                return;
-            }
-
-            for (var i = 0; i < data.length; i++) {
-                var building = new buildingModel();
-                building.buildingId(data[i].BuildingId);
-                building.name(data[i].Name);
-                model.buildings.push(building);
-
-                building.load();
-            }
-
-        });
+            model.loadBuildings();
         });
     </script>
 }
