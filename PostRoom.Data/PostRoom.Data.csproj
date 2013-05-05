@@ -69,6 +69,18 @@
     <Compile Include="Migrations\201304201304188_Added Post.Designer.cs">
       <DependentUpon>201304201304188_Added Post.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201305050731174_Added Friendly Name to Apartment.cs" />
+    <Compile Include="Migrations\201305050731174_Added Friendly Name to Apartment.Designer.cs">
+      <DependentUpon>201305050731174_Added Friendly Name to Apartment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201305050844501_Added Delivery support.cs" />
+    <Compile Include="Migrations\201305050844501_Added Delivery support.Designer.cs">
+      <DependentUpon>201305050844501_Added Delivery support.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201305050901196_Added BuildingId to Apartment.cs" />
+    <Compile Include="Migrations\201305050901196_Added BuildingId to Apartment.Designer.cs">
+      <DependentUpon>201305050901196_Added BuildingId to Apartment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PostRoomDataContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -94,6 +106,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201304201304188_Added Post.resx">
       <DependentUpon>201304201304188_Added Post.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201305050731174_Added Friendly Name to Apartment.resx">
+      <DependentUpon>201305050731174_Added Friendly Name to Apartment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201305050844501_Added Delivery support.resx">
+      <DependentUpon>201305050844501_Added Delivery support.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201305050901196_Added BuildingId to Apartment.resx">
+      <DependentUpon>201305050901196_Added BuildingId to Apartment.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

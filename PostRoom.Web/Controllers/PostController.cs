@@ -13,10 +13,12 @@ namespace PostRoom.Web.Controllers
     public class PostController : Controller
     {
         private PropertyManager buildingManager;
+        private PostManager postManager;
 
         public PostController()
         {
             buildingManager = new PropertyManager();
+            postManager = new PostManager();
         }
 
         public ActionResult Index(long estateId)
@@ -38,15 +40,22 @@ namespace PostRoom.Web.Controllers
             return Json(buildingModels, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult OutstandingPackages(long buildingId)
+        public JsonResult OutstandingPackagesForBuilding(long buildingId)
         {
-            return Json(12, JsonRequestBehavior.AllowGet);
+            var packageCount = postManager.GetTotalOutstandingPackagesForBuilding(buildingId);
+            return Json(packageCount, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult Apartments(long buildingId)
         {
             var apartments = buildingManager.GetApartmentsForBuilding(buildingId);
             return Json(apartments, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult RecordDelivery(long apartmentId, string recipient)
+        {
+            postManager.RecordDelivery(apartmentId, recipient);
+            return Json(true);
         }
     }
 }

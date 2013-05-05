@@ -26,6 +26,7 @@ namespace PostRoom.Data.Migrations
             for (int i = 1; i < 55; i++)
             {
                 var apartment = new Apartment() { Number = i };
+                apartment.FriendlyName = string.Format("{0} {1}", i, building.Name);
                 building.Apartments.Add(apartment);
             }
 

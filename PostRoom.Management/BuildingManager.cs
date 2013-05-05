@@ -26,7 +26,7 @@ namespace PostRoom.Management
             return context.Estates.Find(estateId).Buildings.ToList();
         }
 
-        public List<Apartment> GetApartmentsForBuilding(long buildingId)
+        public List<Data.Apartment> GetApartmentsForBuilding(long buildingId)
         {
             return context.Buildings.Find(buildingId).Apartments.ToList();
         }

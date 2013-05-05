@@ -123,6 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BootstrapBundleConfig.cs" />
+    <Compile Include="Controllers\ApartmentsController.cs" />
     <Compile Include="Controllers\PropertyController.cs" />
     <Compile Include="Controllers\EstateController.cs" />
     <Compile Include="Controllers\EstatesController.cs" />

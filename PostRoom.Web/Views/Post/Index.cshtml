@@ -1,11 +1,21 @@
 ﻿@model System.Int64
+<style type="text/css">
+    .typeahead {
+        z-index: 999999;
+    }
+</style>
 <h2>Post
- <a href="#myModal" role="button" class="btn" data-toggle="modal" style="float: right; margin-left: 5px;">
+ <a href="#recordDeliveryModal" role="button" class="btn" data-toggle="modal" style="float: right; margin-left: 5px;">
      <i class="icon-plus"></i>
      Record Delivery</a>
     @*<button class="btn" style="float: right;"><i class="icon-minus"></i>Record Collection</button>*@
 </h2>
 <hr />
+<div style="width: 150px; margin-left: auto; margin-right: auto; text-align: center;" data-bind="visible: isLoading">
+    <i class="icon-spinner icon-spin icon-4x"></i>
+    <br />
+    LOADING
+</div>
 <div class="accordion" id="accordion2" data-bind="foreach: buildings">
     <div class="accordion-group">
         <div class="accordion-heading">
@@ -35,21 +45,25 @@
     </div>
 </div>
 
-<div id="myModal" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="recordDeliveryModal" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-bind="with: recordDelivery">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">Recovd Delivery</h3>
+        <h3 id="myModalLabel">Record Delivery</h3>
     </div>
     <div class="modal-body">
         <p>Details of the delivery are captured here.</p>
+        <label>Apartment</label>
+        <input id="apartmentName" class="apartmentSearch" autocomplete="off" type="text" />
+        <label>Recipient</label>
+        <input type="text" />
     </div>
     <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-        <button class="btn btn-primary">Record</button>
+        <button class="btn btn-primary" data-bind="click: recordDelivery">Record</button>
     </div>
 </div>
 
-<div id="updateApartmentDeliveriesModel" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="updateApartmentDeliveriesModal" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h3>Update Deliveries</h3>
@@ -84,11 +98,31 @@
 {
     <script type="text/javascript">
 
+        var selectedApartmentId = null;
+        var map = null;
+        var states = null;
         var model = new postModel();
+
+        function recordDeliveryModal() {
+            var self = this;
+            self.recordDelivery = function () {
+
+                $.ajax({
+                    type: "Post",
+                    url: "@Url.Action("RecordDelivery")",
+                    dataType: "json",
+                    data: { apartmentId: selectedApartmentId }
+                }).done(function (data) {
+                    $("#recordDeliveryModal").modal("hide");
+                });
+            };
+        };
 
         function postModel() {
             var self = this;
+            self.isLoading = ko.observable();
             self.buildings = ko.observableArray();
+            self.recordDelivery = new recordDeliveryModal();
         };
 
         function buildingModel() {
@@ -104,7 +138,8 @@
             self.load = function () {
                 $.ajax({
                     type: "Get",
-                    url: "@Url.Action("OutstandingPackages")?buildingId=" + self.buildingId(),
+                    url: "@Url.Action("OutstandingPackagesForBuilding")",
+                    data: { buildingId: self.buildingId() },
                     dataType: "json"
                 }).done(function (data) {
                     self.totalPackages(data);
@@ -143,34 +178,60 @@
             self.number = ko.observable();
 
             self.showUpdateDialog = function () {
-                $("#updateApartmentDeliveriesModel").modal();
+                $("#updateApartmentDeliveriesModal").modal();
             };
         };
 
         $().ready(function () {
 
+            $(".apartmentSearch").typeahead({
+                source: function (query, process) {
+
+                    states = [];
+                    map = {};
+
+                    $.get("@Url.Action("SearchApartments", new { Controller = "Apartments" })", { query: query }, function (data) {
+
+                        $.each(data, function (i, apartment) {
+                            map[apartment.FriendlyName] = apartment;
+                            states.push(apartment.FriendlyName);
+                        });
+
+                        return process(states);
+                    });
+                },
+                updater: function (item) {
+                    selectedApartmentId = map[item].ApartmentId;
+                    return item;
+                }
+            });
+
             ko.applyBindings(model);
+
+            model.isLoading(true);
 
             $.ajax({
                 type: "Get",
                 url: "@Url.Action("Post", new { estateId = Model })",
-                dataType: "json"
-            }).done(function (data) {
+            dataType: "json"
+        }).done(function (data) {
 
-                if (data == null) {
-                    return;
-                }
+            model.isLoading(false);
 
-                for (var i = 0; i < data.length; i++) {
-                    var building = new buildingModel();
-                    building.buildingId(data[i].BuildingId);
-                    building.name(data[i].Name);
-                    model.buildings.push(building);
+            if (data == null) {
+                return;
+            }
 
-                    building.load();
-                }
+            for (var i = 0; i < data.length; i++) {
+                var building = new buildingModel();
+                building.buildingId(data[i].BuildingId);
+                building.name(data[i].Name);
+                model.buildings.push(building);
 
-            });
+                building.load();
+            }
+
+        });
         });
     </script>
 }

@@ -11,6 +11,7 @@ namespace PostRoom.Data
     {
         public long DeliveryId { get; set; }
         public DateTime DeliveryDate { get; set; }
+        public string Recipient { get; set; }
         public long ApartmentId { get; set; }
 
         [ForeignKey("ApartmentId")]
