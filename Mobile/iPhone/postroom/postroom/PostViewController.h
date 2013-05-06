@@ -10,10 +10,12 @@
 #import "PostModel.h"
 #import "SettingsModel.h"
 
-@interface PostViewController : UIViewController<PostModelDelegate, UIAlertViewDelegate>
+@interface PostViewController : UITableViewController<PostModelDelegate, UIAlertViewDelegate>
 
 @property (nonatomic) SettingsModel *settingsModel;
 @property (nonatomic) UILabel *label;
+@property (nonatomic) UILabel *dateLabel;
+@property (nonatomic) UIActivityIndicatorView *refreshingIndicator;
 @property (nonatomic) PostModel *model;
 
 @end

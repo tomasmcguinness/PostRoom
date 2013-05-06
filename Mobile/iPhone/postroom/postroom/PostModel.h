@@ -13,13 +13,15 @@
 
 - (void)updateSkippedNoRegistered;
 - (void)updatePostComplete;
+- (void)updatingPost;
 
 @end
 
 @interface PostModel : NSObject
 
 @property (nonatomic) id<PostModelDelegate> delegate;
-@property (nonatomic) NSNumber *numberOfItems;
+@property (nonatomic, strong) NSNumber *numberOfItems;
+@property (nonatomic, strong) NSDate *lastUpdated;
 
 - (void)updatePost;
 

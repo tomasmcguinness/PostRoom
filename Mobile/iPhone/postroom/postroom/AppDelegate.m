@@ -21,7 +21,7 @@
     
     UITabBarController *tabbarController = [[UITabBarController alloc] init];
     
-    PostViewController *postController = [[PostViewController alloc] init];
+    PostViewController *postController = [[PostViewController alloc] initWithStyle:UITableViewStyleGrouped];
     SettingsViewController *settingsController = [[SettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     
     UINavigationController *postNavController = [[UINavigationController alloc] initWithRootViewController:postController];

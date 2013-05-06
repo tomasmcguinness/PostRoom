@@ -19,11 +19,14 @@
     
     if(!hasProperty)
     {
+        NSLog(@"No property selected");
         [self.delegate updateSkippedNoRegistered];
         return;
     }
     
     NSUUID *uniqueIdentifier = [[UIDevice currentDevice] identifierForVendor];
+    
+    [self.delegate updatingPost];
     
     NSString *url = [NSString stringWithFormat:@"http://postroom.azurewebsites.net/api/resident?uniqueUserIdentifier=%@", [uniqueIdentifier UUIDString]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
