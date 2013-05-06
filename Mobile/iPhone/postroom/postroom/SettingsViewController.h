@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "SettingsModel.h"
 #import "EstateViewController.h"
+#import "UITableViewCellWithSwitch.h"
+#import <SVProgressHUD/SVProgressHUD.h>
 
-@interface SettingsViewController : UITableViewController
+@interface SettingsViewController : UITableViewController<SettingsModelDelegate>
 
 @property (nonatomic) SettingsModel *model;
 

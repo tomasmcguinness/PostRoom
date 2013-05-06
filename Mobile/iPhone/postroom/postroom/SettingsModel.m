@@ -41,12 +41,73 @@
     
 }
 
+- (BOOL)newPostNotificationsEnabled
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSNumber *number = [defaults valueForKey:@"NotificationsEnabled"];
+    return [number boolValue];
+}
+
+- (void)newPostNotificationsEnabled:(BOOL)value
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setValue:[NSNumber numberWithBool:value] forKey:@"NotificationsEnabled"];
+}
+
 - (BOOL)hasPropertySelected
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     id selectedProperty = [defaults objectForKey:@"ApartmentId"];
     
     return selectedProperty != nil;
+}
+
+- (void)updateNewPostNotificationSetting:(BOOL)enabled;
+{
+    NSUUID *uniqueIdentifier = [[UIDevice currentDevice] identifierForVendor];
+
+    NSString *template = @"http://postroom.azurewebsites.net/api/settings?uniqueUserIdentifier=%@&newPostNotifications=%@";
+    NSString *url = [NSString stringWithFormat:template, [uniqueIdentifier UUIDString],[NSNumber numberWithBool:enabled]];
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
+    [request setHTTPMethod:@"PUT"];
+    
+    [self.delegate settingsUpdating];
+    
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error )
+     {
+         NSHTTPURLResponse *httpResp = (NSHTTPURLResponse *)response;
+         
+         if(error)
+         {
+             NSLog(@"Error getting response: %@", [error localizedDescription]);
+             dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.delegate settingsUpdateFailed];
+             });
+         }
+         else
+         {
+             NSLog(@"Status: %d", httpResp.statusCode);
+             NSLog(@"Body: %@", [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSASCIIStringEncoding]);
+             
+             if(httpResp.statusCode == 200)
+             {
+                 [self setNewPostNotificationsEnabled:enabled];
+                 
+                 dispatch_async(dispatch_get_main_queue(), ^{
+                     [self.delegate settingsUpdated];
+                 });
+             }
+             else
+             {
+                 dispatch_async(dispatch_get_main_queue(), ^{
+                     [self.delegate settingsUpdateFailed];
+                 });
+             }
+         }
+     }];
 }
 
 - (void)registerUserInApartment:(NSNumber *)apartmentId
@@ -63,7 +124,8 @@
     
     NSUUID *uniqueIdentifier = [[UIDevice currentDevice] identifierForVendor];
     
-    NSString *url = [NSString stringWithFormat:@"http://postroom.azurewebsites.net/api/resident?apartmentId=%@&uniqueUserIdentifier=%@", apartmentId, [uniqueIdentifier UUIDString]];
+    NSString *template = @"http://postroom.azurewebsites.net/api/resident?apartmentId=%@&uniqueUserIdentifier=%@";
+    NSString *url = [NSString stringWithFormat:template, apartmentId, [uniqueIdentifier UUIDString]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
     [request setHTTPMethod:@"PUT"];
     

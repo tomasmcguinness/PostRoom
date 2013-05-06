@@ -17,6 +17,10 @@
 - (void)registeringApartmentComplete;
 - (void)registeringApartmentFailed;
 
+- (void)settingsUpdateFailed;
+- (void)settingsUpdating;
+- (void)settingsUpdated;
+
 @end
 
 @interface SettingsModel : NSObject<CLLocationManagerDelegate>
@@ -28,11 +32,14 @@
 @property (nonatomic) id<SettingsModelDelegate> delegate;
 @property (nonatomic) NSString *apartmentName;
 @property (nonatomic, readonly) BOOL hasPropertySelected;
+@property (nonatomic) BOOL newPostNotificationsEnabled;
+@property (nonatomic) BOOL locationsNotificationsEnabled;
 @property (nonatomic, strong) CLLocationManager *locationManager;
+
+- (void)updateNewPostNotificationSetting:(BOOL)enabled;
 
 - (void)registerUserInApartment:(NSNumber *)apartmentId;
 - (void)registerForNotificationsOfNewPost;
-//- (void)registerForNotificationsWhenApprochingApartment;
-
 - (void)storeNotificationDeviceIdentifier:(NSString *)deviceIdentifier;
+
 @end

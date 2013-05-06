@@ -19,10 +19,13 @@
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
+    
+    if (self)
+    {
         self.model = [SettingsModel alloc];
+        self.model.delegate = self;
     }
+    
     return self;
 }
 
@@ -31,6 +34,7 @@
     [super viewDidLoad];
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
+    [self.tableView registerClass:[UITableViewCellWithSwitch class] forCellReuseIdentifier:@"SwitchCell"];
     
     self.navigationItem.title = @"Settings";
     self.tableView.backgroundColor = [UIColor whiteColor];
@@ -44,7 +48,24 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+}
+
+- (void)settingsUpdating
+{
+    [self.tableView reloadData];
+    [SVProgressHUD showWithStatus:@"Updating"];
+}
+
+- (void)settingsUpdated
+{
+    [self.tableView reloadData];
+    [SVProgressHUD showSuccessWithStatus:@"Updated!"];
+}
+
+- (void)settingsUpdateFailed
+{
+    [self.tableView reloadData];
+    [SVProgressHUD showErrorWithStatus:@"Failed"];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -54,7 +75,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
     return section == 0 ? 1 : 2;
 }
 
@@ -65,18 +85,20 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
-    return section == 0 ? @"The property you want to receive new post notifications for." : @"Control the type of notifications you receive.";
+    return section == 0 ? @"The property you want to receive new post notifications for." : @"Control your notifications.";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    UITableViewCell *cell;
     
     switch(indexPath.section)
     {
         case 0:
         {
+            cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"];
             cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             
             if(self.model.hasPropertySelected)
             {
@@ -89,8 +111,13 @@
             break;
         }
         case 1:
+        {
+            cell = (UITableViewCellWithSwitch *)[self.tableView dequeueReusableCellWithIdentifier:@"SwitchCell"];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.accessoryType = UITableViewCellAccessoryNone;
             [self buildNotificationCell:indexPath withCell:cell];
             break;
+        }
     }
     
     return cell;
@@ -110,14 +137,33 @@
 
 - (void)buildNotificationCell:(NSIndexPath *)indexPath withCell:(UITableViewCell *)cell
 {
+    UITableViewCellWithSwitch *switchCell = (UITableViewCellWithSwitch *)cell;
+    
+    [switchCell.cellSwitch addTarget:self action:@selector(updateSwitch:) forControlEvents:UIControlEventValueChanged];
+    
     if(indexPath.row == 0)
     {
-        cell.textLabel.text = @"New post received";
+        switchCell.textLabel.text = @"New post received";
+        switchCell.cellSwitch.on = self.model.newPostNotificationsEnabled;
+        switchCell.cellSwitch.tag = 1;
     }
     
     if(indexPath.row == 1)
     {
-        cell.textLabel.text = @"Nearing your apartment";
+        switchCell.textLabel.text = @"Nearing your apartment";
+        switchCell.cellSwitch.tag = 2;
+    }
+}
+
+- (void)updateSwitch:(UISwitch *)cellSwitch
+{
+    if(cellSwitch.tag == 1)
+    {
+        [self.model updateNewPostNotificationSetting:cellSwitch.on];
+    }
+    else if(cellSwitch.tag == 2)
+    {
+        
     }
 }
 
@@ -126,14 +172,7 @@
     EstateViewController *propertyViewController = [[EstateViewController alloc] initWithStyle:UITableViewStylePlain];
     UINavigationController *propertyNavViewController = [[UINavigationController alloc] initWithRootViewController:propertyViewController];
     
-    if(self.model.hasPropertySelected)
-    {
-        
-    }
-    else
-    {
-        [self presentViewController:propertyNavViewController animated:YES completion:nil];
-    }
+    [self presentViewController:propertyNavViewController animated:YES completion:nil];
 }
 
 @end
