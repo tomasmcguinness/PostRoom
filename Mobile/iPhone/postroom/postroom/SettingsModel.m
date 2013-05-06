@@ -65,8 +65,8 @@
 - (void)updateNewPostNotificationSetting:(BOOL)enabled;
 {
     NSUUID *uniqueIdentifier = [[UIDevice currentDevice] identifierForVendor];
-
-    NSString *template = @"http://postroom.azurewebsites.net/api/settings?uniqueUserIdentifier=%@&newPostNotifications=%@";
+    
+    NSString *template = @"http://postroom.azurewebsites.net/api/settings?uniqueUserIdentifier=%@&PostNotifications=%@";
     NSString *url = [NSString stringWithFormat:template, [uniqueIdentifier UUIDString],[NSNumber numberWithBool:enabled]];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
@@ -84,7 +84,7 @@
          {
              NSLog(@"Error getting response: %@", [error localizedDescription]);
              dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.delegate settingsUpdateFailed];
+                 [self.delegate settingsUpdateFailed];
              });
          }
          else
@@ -110,24 +110,21 @@
      }];
 }
 
+- (void)updateLocationBasedPostNotificationSetting:(BOOL)enabled;
+{
+    
+}
+
 - (void)registerUserInApartment:(NSNumber *)apartmentId
 {
-    [self.delegate registeringApartmentStarted];
-    
-#ifdef DEBUG
-    
-    [self updateUserRegistrationSettings:apartmentId];
-    [self.delegate registeringApartmentComplete];
-    return;
-    
-#endif
-    
     NSUUID *uniqueIdentifier = [[UIDevice currentDevice] identifierForVendor];
     
     NSString *template = @"http://postroom.azurewebsites.net/api/resident?apartmentId=%@&uniqueUserIdentifier=%@";
     NSString *url = [NSString stringWithFormat:template, apartmentId, [uniqueIdentifier UUIDString]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
     [request setHTTPMethod:@"PUT"];
+    
+    [self.delegate registeringApartmentStarted];
     
     NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     
@@ -217,7 +214,7 @@
     
     NSUUID *uniqueIdentifier = [[UIDevice currentDevice] identifierForVendor];
     
-    NSString *format = @"http://postroom.azurewebsites.net/api/resident?uniqueUserIdentifier=%@&deviceIdentifier=%@&alertOnNewPackage=true";
+    NSString *format = @"http://postroom.azurewebsites.net/api/resident/register?uniqueUserIdentifier=%@&deviceIdentifier=%@";
     NSString *url = [NSString stringWithFormat:format, [uniqueIdentifier UUIDString], deviceIdentifier];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];

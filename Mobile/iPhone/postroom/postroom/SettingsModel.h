@@ -37,7 +37,6 @@
 @property (nonatomic, strong) CLLocationManager *locationManager;
 
 - (void)updateNewPostNotificationSetting:(BOOL)enabled;
-
 - (void)registerUserInApartment:(NSNumber *)apartmentId;
 - (void)registerForNotificationsOfNewPost;
 - (void)storeNotificationDeviceIdentifier:(NSString *)deviceIdentifier;
