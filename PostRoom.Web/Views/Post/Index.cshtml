@@ -9,7 +9,7 @@
      <i class="icon-plus"></i>
      Record Delivery</a>
 
-    <a href="#" class="btn" style="float: right; margin-left: 5px;" data-bind="click: loadBuildings"><i class="icon-refresh"></i>
+    <a href="#" class="btn" style="float: right; margin-left: 5px;" data-bind="click: refreshPost"><i class="icon-refresh"></i>
     </a>
     @*<button class="btn" style="float: right;"><i class="icon-minus"></i>Record Collection</button>*@
 </h2>
@@ -36,9 +36,9 @@
                     <tbody data-bind="foreach: apartments">
                         <tr>
                             <td style="vertical-align: middle;">
-                                <span data-bind="text: number"></span>
+                                <span data-bind="text: friendlyName"></span>
                                 <button class="btn btn-small" style="float: right;" data-bind="click: showUpdateDialog">Update</button>
-                                <span class="badge badge-info" style="float: right; margin-top: 5px; margin-right: 15px;">2</span>
+                                <span class="badge badge-info" style="float: right; margin-top: 5px; margin-right: 15px;"></span>
                             </td>
                         </tr>
                     </tbody>
@@ -116,7 +116,10 @@
                     dataType: "json",
                     data: { apartmentId: selectedApartmentId }
                 }).done(function (data) {
+
+                    model.refreshPost();
                     $("#recordDeliveryModal").modal("hide");
+
                 });
             };
         };
@@ -126,7 +129,13 @@
             self.isLoading = ko.observable();
             self.buildings = ko.observableArray();
             self.recordDelivery = new recordDeliveryModal();
+            self.refreshPost = function () {
 
+                for (var i = 0; i < self.buildings().length; i++) {
+                    self.buildings()[i].load();
+                }
+
+            };
             self.loadBuildings = function () {
 
                 self.isLoading(true);
@@ -161,6 +170,7 @@
             var self = this;
 
             self.number = ko.observable();
+            self.friendlyName = ko.observable();
 
             self.showUpdateDialog = function () {
                 $("#updateApartmentDeliveriesModal").modal();
@@ -202,10 +212,12 @@
                         data: { buildingId: self.buildingId() },
                         dataType: "json"
                     }).done(function (data) {
-                        alert(data.length + " apartments loaded");
+
                         for (var i = 0; i < data.length; i++) {
                             var apartment = new apartmentModel();
                             apartment.number(data[i].Number);
+                            apartment.friendlyName(data[i].FriendlyName);
+
                             self.apartments.push(apartment);
                         }
 

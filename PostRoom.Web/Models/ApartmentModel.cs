@@ -9,5 +9,7 @@ namespace PostRoom.Web.Models
     {
         public long ApartmentId { get; set; }
         public int ApartmentNumber { get; set; }
+
+        public string FriendlyName { get; set; }
     }
 }

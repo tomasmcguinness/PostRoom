@@ -40,6 +40,7 @@ namespace PostRoom.Web.Controllers
             return Json(buildingModels, JsonRequestBehavior.AllowGet);
         }
 
+        [OutputCache(Duration = 0)]
         public JsonResult OutstandingPackagesForBuilding(long buildingId)
         {
             var packageCount = postManager.GetTotalOutstandingPackagesForBuilding(buildingId);
@@ -49,7 +50,15 @@ namespace PostRoom.Web.Controllers
         public JsonResult Apartments(long buildingId)
         {
             var apartments = buildingManager.GetApartmentsForBuilding(buildingId);
-            return Json(apartments, JsonRequestBehavior.AllowGet);
+
+            var apartmentModels = new List<ApartmentModel>();
+
+            foreach (var apartment in apartments)
+            {
+                apartmentModels.Add(new ApartmentModel() { ApartmentId = apartment.ApartmentId, FriendlyName = apartment.FriendlyName });
+            }
+
+            return Json(apartmentModels, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult RecordDelivery(long apartmentId, string recipient)
