@@ -66,11 +66,11 @@
 {
     NSUUID *uniqueIdentifier = [[UIDevice currentDevice] identifierForVendor];
     
-    NSString *template = @"http://postroom.azurewebsites.net/api/settings?uniqueUserIdentifier=%@&PostNotifications=%@";
-    NSString *url = [NSString stringWithFormat:template, [uniqueIdentifier UUIDString],[NSNumber numberWithBool:enabled]];
+    NSString *template = @"http://postroom.azurewebsites.net/api/resident?uniqueUserIdentifier=%@&alertOnNewParcel=%@&deviceIdentifier=%@";
+    NSString *url = [NSString stringWithFormat:template, [uniqueIdentifier UUIDString],[NSNumber numberWithBool:enabled], self.deviceIdentifier];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
-    [request setHTTPMethod:@"PUT"];
+    [request setHTTPMethod:@"POST"];
     
     [self.delegate settingsUpdating];
     
@@ -144,7 +144,7 @@
              NSLog(@"Status: %d", httpResp.statusCode);
              NSLog(@"Body: %@", [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSASCIIStringEncoding]);
              
-             if(httpResp.statusCode == 200)
+             if(httpResp.statusCode == 201)
              {
                  [self updateUserRegistrationSettings:apartmentId];
                  
@@ -214,11 +214,11 @@
     
     NSUUID *uniqueIdentifier = [[UIDevice currentDevice] identifierForVendor];
     
-    NSString *format = @"http://postroom.azurewebsites.net/api/resident/register?uniqueUserIdentifier=%@&deviceIdentifier=%@";
+    NSString *format = @"http://postroom.azurewebsites.net/api/resident?uniqueUserIdentifier=%@&deviceIdentifier=%@";
     NSString *url = [NSString stringWithFormat:format, [uniqueIdentifier UUIDString], deviceIdentifier];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
-    [request setHTTPMethod:@"POST"];
+    [request setHTTPMethod:@"PUT"];
     
     NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     

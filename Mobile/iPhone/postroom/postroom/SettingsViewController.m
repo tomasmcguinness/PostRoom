@@ -85,7 +85,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
-    return section == 0 ? @"The property you want to receive new post notifications for." : @"Control your notifications.";
+    return section == 0 ? @"The property you want to receive new post notifications for." : @"Control all your post notifications.";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

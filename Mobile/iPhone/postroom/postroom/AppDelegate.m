@@ -18,7 +18,6 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    
     UITabBarController *tabbarController = [[UITabBarController alloc] init];
     
     PostViewController *postController = [[PostViewController alloc] initWithStyle:UITableViewStyleGrouped];
@@ -96,7 +95,7 @@
     
     NSLog(@"Device Token: %@", deviceTokenStr);
     
-    [[[SettingsModel alloc] init] storeNotificationDeviceIdentifier:deviceTokenStr];
+    [[SettingsModel alloc] init].deviceIdentifier = deviceTokenStr;
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error

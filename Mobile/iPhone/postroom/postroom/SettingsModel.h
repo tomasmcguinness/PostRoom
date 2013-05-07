@@ -31,6 +31,7 @@
 
 @property (nonatomic) id<SettingsModelDelegate> delegate;
 @property (nonatomic) NSString *apartmentName;
+@property (nonatomic) NSString *deviceIdentifier;
 @property (nonatomic, readonly) BOOL hasPropertySelected;
 @property (nonatomic) BOOL newPostNotificationsEnabled;
 @property (nonatomic) BOOL locationsNotificationsEnabled;
