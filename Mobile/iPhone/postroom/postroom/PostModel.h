@@ -19,6 +19,7 @@
 
 @interface PostModel : NSObject
 
+@property (nonatomic, strong) SettingsModel *settingsModel;
 @property (nonatomic) id<PostModelDelegate> delegate;
 @property (nonatomic, strong) NSNumber *numberOfItems;
 @property (nonatomic, strong) NSDate *lastUpdated;

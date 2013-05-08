@@ -171,7 +171,7 @@
     }
     else
     {
-        self.navigationController.tabBarItem.badgeValue =self.label.text;
+        self.navigationController.tabBarItem.badgeValue = self.label.text;
     }
     
     self.label.text = [NSString stringWithFormat:@"%@", self.model.numberOfItems];

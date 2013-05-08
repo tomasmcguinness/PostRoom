@@ -60,18 +60,18 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (BOOL)newPostNotificationsEnabled
+- (NSNumber *)newPostNotificationsEnabled
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSNumber *number = [defaults valueForKey:@"NotificationsEnabled"];
+    NSNumber *number = [defaults objectForKey:@"NotificationsEnabled"];
     
-    return [number boolValue];
+    return number;
 }
 
-- (void)newPostNotificationsEnabled:(BOOL)value
+- (void)setNewPostNotificationsEnabled:(NSNumber *)value
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setValue:[NSNumber numberWithBool:value] forKey:@"NotificationsEnabled"];
+    [defaults setObject:value forKey:@"NotificationsEnabled"];
     [defaults synchronize];
 }
 
@@ -167,7 +167,7 @@
              
              if(httpResp.statusCode == 200)
              {
-                 [self setNewPostNotificationsEnabled:enabled];
+                 [self setNewPostNotificationsEnabled:[NSNumber numberWithBool:enabled]];
                  
                  dispatch_async(dispatch_get_main_queue(), ^{
                      [self.delegate settingsUpdated];
@@ -187,7 +187,7 @@
 {
     self.apartmentId = apartment.apartmentId;
     self.apartmentName = apartment.friendlyName;
-    self.newPostNotificationsEnabled = YES;
+    self.newPostNotificationsEnabled = [NSNumber numberWithBool:YES];
 }
 
 - (void)registerForNotificationsOfNewPost

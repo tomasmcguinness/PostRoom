@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import <CoreAudio/CoreAudioTypes.h>
-#import "PostModel.h"
 #import "Apartment.h"
 
 @protocol SettingsModelDelegate <NSObject>
@@ -35,7 +34,7 @@
 @property (nonatomic) NSString *apartmentName;
 @property (nonatomic) NSString *deviceIdentifier;
 @property (nonatomic, readonly) BOOL hasPropertySelected;
-@property (nonatomic) BOOL newPostNotificationsEnabled;
+@property (nonatomic) NSNumber *newPostNotificationsEnabled;
 @property (nonatomic) BOOL locationsNotificationsEnabled;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 

@@ -12,6 +12,7 @@
 
 @synthesize delegate;
 @synthesize numberOfItems;
+@synthesize settingsModel;
 
 - (id)init
 {
@@ -20,6 +21,7 @@
     if(self)
     {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePost) name:@"UserRegistered" object:nil];
+        self.settingsModel = [[SettingsModel alloc] init];
     }
     
     return self;
@@ -36,11 +38,9 @@
         return;
     }
     
-    NSUUID *uniqueIdentifier = [[UIDevice currentDevice] identifierForVendor];
-    
     [self.delegate updatingPost];
     
-    NSString *url = [NSString stringWithFormat:@"http://postroom.azurewebsites.net/api/resident?uniqueUserIdentifier=%@", [uniqueIdentifier UUIDString]];
+    NSString *url = [NSString stringWithFormat:@"http://postroom.azurewebsites.net/api/resident?uniqueUserIdentifier=%@", self.settingsModel.deviceIdentifier];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
     [request setHTTPMethod:@"GET"];
     
