@@ -36,5 +36,18 @@ namespace PostRoom.Management
                 return package;
             }
         }
+
+        internal int GetTotalOutstandingPackagesForApartment(long apartmentId)
+        {
+            using (var ctx = new PostRoomDataContext())
+            {
+                var package = (from d in ctx.Deliveries
+                               join a in ctx.Apartments on d.ApartmentId equals a.ApartmentId
+                               where a.ApartmentId == apartmentId
+                               select d).Count();
+
+                return package;
+            }
+        }
     }
 }

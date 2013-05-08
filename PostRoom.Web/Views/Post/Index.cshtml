@@ -188,6 +188,9 @@
             self.apartments = ko.observableArray();
 
             self.load = function () {
+
+                self.apartments.removeAll();
+
                 $.ajax({
                     type: "Get",
                     url: "@Url.Action("OutstandingPackagesForBuilding")",
@@ -203,6 +206,8 @@
                 self.showApartments(!self.showApartments());
 
                 if (self.showApartments()) {
+
+                    if (self.apartments().length > 0) return;
 
                     self.loadingApartments(true);
 

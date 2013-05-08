@@ -65,7 +65,7 @@ namespace PostRoom.Web.Controllers
 
             foreach (var apartment in apartmentList)
             {
-                modelList.Add(new ApartmentModel() { ApartmentId = apartment.ApartmentId, ApartmentNumber = apartment.Number });
+                modelList.Add(new ApartmentModel() { ApartmentId = apartment.ApartmentId, ApartmentNumber = apartment.Number, FriendlyName = apartment.FriendlyName });
             }
 
             return new HttpResponseMessage(HttpStatusCode.OK)

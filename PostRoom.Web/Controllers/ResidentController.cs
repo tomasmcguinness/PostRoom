@@ -19,7 +19,7 @@ namespace PostRoom.Web.Controllers
             this.residentManager = new ResidentManager();
         }
 
-        public HttpResponseMessage Get(string uniqueUserIdentifier)
+        public HttpResponseMessage Get([FromUri]string uniqueUserIdentifier)
         {
             int numberOfItems = residentManager.GetNumberOfItemsToCollection(uniqueUserIdentifier);
 
@@ -34,14 +34,13 @@ namespace PostRoom.Web.Controllers
             };
         }
 
-        public HttpResponseMessage Put(string uniqueUserIdentifier, long apartmentId)
+        public HttpResponseMessage Put([FromUri]string uniqueUserIdentifier, [FromUri]long apartmentId)
         {
             residentManager.AddResident(uniqueUserIdentifier, apartmentId);
-            return new HttpResponseMessage(HttpStatusCode.OK);
+            return new HttpResponseMessage(HttpStatusCode.Created);
         }
 
-        [HttpPost]
-        public HttpResponseMessage PostResident([FromUri]string uniqueUserIdentifier, [FromUri]string deviceIdentifier, [FromUri]bool alertOnNewPackage)
+        public HttpResponseMessage Post([FromUri]string uniqueUserIdentifier, [FromUri]string deviceIdentifier, [FromUri]bool alertOnNewPackage)
         {
             residentManager.UpdateResident(uniqueUserIdentifier, deviceIdentifier, alertOnNewPackage);
 
