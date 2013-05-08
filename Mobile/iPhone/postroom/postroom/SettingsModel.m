@@ -72,6 +72,7 @@
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setValue:[NSNumber numberWithBool:value] forKey:@"NotificationsEnabled"];
+    [defaults synchronize];
 }
 
 - (BOOL)hasPropertySelected
