@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BuildingModel.h"
 #import "ApartmentViewController.h"
+#import <SVProgressHUD/SVProgressHUD.h>
 
 @interface BuildingViewController : UITableViewController<BuildingModelDelegate>
 

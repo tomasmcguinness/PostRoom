@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "EstateModel.h"
 #import "BuildingViewController.h"
+#import <SVProgressHUD/SVProgressHUD.h>
 
 @interface EstateViewController : UITableViewController<EstateModelDelegate>
 

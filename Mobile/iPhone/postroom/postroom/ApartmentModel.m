@@ -16,22 +16,6 @@
 {
     [self.delegate apartmentLoadingStarted];
     
-#if DEBUG
-    
-    NSMutableArray *downloadedEstates = [[NSMutableArray alloc] initWithCapacity:1];
-    
-    Apartment *model = [[Apartment alloc] init];
-    
-    model.apartmentId = [NSNumber numberWithInt:1];
-    model.number = [NSNumber numberWithInt:24];
-    [downloadedEstates addObject:model];
-    
-    self.apartments = [[NSArray alloc] initWithArray:downloadedEstates];
-    
-    return;
-    
-#endif
-    
     NSString *url = [NSString stringWithFormat:@"http://postroom.azurewebsites.net/api/property/apartments?buildingId=%@", buildingId];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
     NSOperationQueue *queue = [[NSOperationQueue alloc] init];
@@ -65,6 +49,7 @@
                      
                      model.apartmentId = [estateItem valueForKey:@"ApartmentId"];
                      model.number = [estateItem valueForKey:@"ApartmentNumber"];
+                     model.friendlyName = [estateItem valueForKey:@"FriendlyName"];
                      
                      [downloadedBuildings addObject:model];
                  }

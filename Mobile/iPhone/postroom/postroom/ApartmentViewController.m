@@ -58,31 +58,33 @@
 
 - (void)apartmentLoadingStarted
 {
-    
+    [SVProgressHUD showWithStatus:@"Loading Apartments..." maskType:SVProgressHUDMaskTypeClear];
 }
 
 - (void)apartmentLoadingComplete
 {
+    [SVProgressHUD dismiss];
     [self.tableView reloadData];
 }
 
 - (void)apartmentLoadingFailed
 {
-    
+    [SVProgressHUD showErrorWithStatus:@"Failed!"];
 }
 
 #pragma mark - SettingsModelDelegate
 
 - (void)registeringApartmentStarted
 {
-    
+    [SVProgressHUD showWithStatus:@"Registering..." maskType:SVProgressHUDMaskTypeClear];
 }
 
 - (void)registeringApartmentComplete
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Complete" message:@"You have been successfully registered at this address." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles: nil];
-    [alert show];
-    
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Complete" message:@"You have been successfully registered at this address." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles: nil];
+//    [alert show];
+    [SVProgressHUD showSuccessWithStatus:@"Registered Successfully"];
+    self.tabBarController.selectedIndex = 0;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -114,7 +116,7 @@
     
     Apartment *apartment = [self.model.apartments objectAtIndex:indexPath.row];
     
-    cell.textLabel.text = [NSString stringWithFormat:@"Apartment %@", apartment.number];
+    cell.textLabel.text = apartment.friendlyName;
     
     return cell;
 }
@@ -126,7 +128,7 @@
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     Apartment *apartment = [self.model.apartments objectAtIndex:indexPath.row];
-    [self.settingsModel registerUserInApartment:apartment.apartmentId];
+    [self.settingsModel registerUserInApartment:apartment];
 }
 
 @end

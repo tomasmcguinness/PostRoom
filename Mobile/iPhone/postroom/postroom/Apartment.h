@@ -12,5 +12,6 @@
 
 @property (nonatomic) NSNumber *apartmentId;
 @property (nonatomic) NSNumber *number;
+@property (nonatomic) NSString *friendlyName;
 
 @end

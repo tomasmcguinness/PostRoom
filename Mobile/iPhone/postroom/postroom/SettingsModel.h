@@ -10,6 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <CoreAudio/CoreAudioTypes.h>
 #import "PostModel.h"
+#import "Apartment.h"
 
 @protocol SettingsModelDelegate <NSObject>
 
@@ -30,6 +31,7 @@
 }
 
 @property (nonatomic) id<SettingsModelDelegate> delegate;
+@property (nonatomic) NSNumber *apartmentId;
 @property (nonatomic) NSString *apartmentName;
 @property (nonatomic) NSString *deviceIdentifier;
 @property (nonatomic, readonly) BOOL hasPropertySelected;
@@ -38,7 +40,7 @@
 @property (nonatomic, strong) CLLocationManager *locationManager;
 
 - (void)updateNewPostNotificationSetting:(BOOL)enabled;
-- (void)registerUserInApartment:(NSNumber *)apartmentId;
+- (void)registerUserInApartment:(Apartment *)apartment;
 - (void)registerForNotificationsOfNewPost;
 - (void)storeNotificationDeviceIdentifier:(NSString *)deviceIdentifier;
 

@@ -26,19 +26,26 @@
 
 - (NSString *)apartmentName
 {
-    if(self.hasPropertySelected)
-    {
-        return @"Null";
-    }
-    else
-    {
-        return @"Post";
-    }
+    NSString *name = [[NSUserDefaults standardUserDefaults] valueForKey:@"ApartmentName"];
+    return name;
 }
 
 - (void)setApartmentName:(NSString *)name
 {
-    
+    [[NSUserDefaults standardUserDefaults] setObject:name forKey:@"ApartmentName"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSNumber *)apartmentId
+{
+    NSNumber *name = [[NSUserDefaults standardUserDefaults] valueForKey:@"ApartmentId"];
+    return name;    
+}
+
+- (void)setApartmentId:(NSNumber *)apartmentId
+{
+    [[NSUserDefaults standardUserDefaults] setObject:apartmentId forKey:@"ApartmentId"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (BOOL)newPostNotificationsEnabled
@@ -115,12 +122,12 @@
     
 }
 
-- (void)registerUserInApartment:(NSNumber *)apartmentId
+- (void)registerUserInApartment:(Apartment *)apartment
 {
     NSUUID *uniqueIdentifier = [[UIDevice currentDevice] identifierForVendor];
     
     NSString *template = @"http://postroom.azurewebsites.net/api/resident?apartmentId=%@&uniqueUserIdentifier=%@";
-    NSString *url = [NSString stringWithFormat:template, apartmentId, [uniqueIdentifier UUIDString]];
+    NSString *url = [NSString stringWithFormat:template, apartment.apartmentId, [uniqueIdentifier UUIDString]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
     [request setHTTPMethod:@"PUT"];
     
@@ -146,7 +153,7 @@
              
              if(httpResp.statusCode == 201)
              {
-                 [self updateUserRegistrationSettings:apartmentId];
+                 [self updateUserRegistrationSettings:apartment];
                  
                  dispatch_async(dispatch_get_main_queue(), ^{
                      [self.delegate registeringApartmentComplete];
@@ -162,12 +169,10 @@
      }];
 }
 
-- (void)updateUserRegistrationSettings:(NSNumber *)apartmentId
+- (void)updateUserRegistrationSettings:(Apartment *)apartment
 {
-    [[NSUserDefaults standardUserDefaults] setObject:apartmentId forKey:@"ApartmentId"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    [self registerForNotificationsOfNewPost];
+    self.apartmentId = apartment.apartmentId;
+    self.apartmentName = apartment.friendlyName;
 }
 
 - (void)registerForNotificationsOfNewPost

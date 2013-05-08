@@ -12,5 +12,6 @@
 
 @synthesize apartmentId;
 @synthesize number;
+@synthesize friendlyName;
 
 @end

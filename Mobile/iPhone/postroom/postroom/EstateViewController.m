@@ -52,17 +52,18 @@
 
 - (void)estateLoadingStarted
 {
-    
+    [SVProgressHUD showWithStatus:@"Loading Estates..." maskType:SVProgressHUDMaskTypeClear];
 }
 
 - (void)estateLoadingComplete
 {
+    [SVProgressHUD dismiss];
     [self.tableView reloadData];
 }
 
 - (void)estateLoadingFailed
 {
-    
+    [SVProgressHUD showErrorWithStatus:@"Failed!"];
 }
 
 #pragma mark - Table view data source

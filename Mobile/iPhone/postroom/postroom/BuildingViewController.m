@@ -50,17 +50,18 @@
 
 - (void)buildingLoadingStarted
 {
-    
+    [SVProgressHUD showWithStatus:@"Loading Buildings..." maskType:SVProgressHUDMaskTypeClear];
 }
 
 - (void)buildingLoadingComplete
 {
+    [SVProgressHUD dismiss];
     [self.tableView reloadData];
 }
 
 - (void)buildingLoadingFailed
 {
-    
+    [SVProgressHUD showErrorWithStatus:@"Failed!"];
 }
 
 #pragma mark - Table view data source
