@@ -182,7 +182,7 @@
 {
     if(buttonIndex == 1)
     {
-        //[[UIApplication sharedApplication] a]
+        self.tabBarController.selectedIndex = 1;
     }
 }
 

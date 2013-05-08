@@ -33,8 +33,8 @@
     
     tabbarController.viewControllers = [NSArray arrayWithObjects:postNavController, settingsNavController, nil];
     
-    self.settingsModel = [[SettingsModel alloc] init];
-    [self.settingsModel registerForNotificationsOfNewPost];
+    //self.settingsModel = [[SettingsModel alloc] init];
+    //[self.settingsModel registerForNotificationsOfNewPost];
     
     self.window.rootViewController = tabbarController;
     
