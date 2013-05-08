@@ -10,6 +10,7 @@
 #import "PostViewController.h"
 #import "SettingsViewController.h"
 #import "SettingsModel.h"
+#import "RegistrationViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

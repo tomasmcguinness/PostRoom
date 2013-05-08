@@ -75,7 +75,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return section == 0 ? 1 : 2;
+    return section == 0 ? 1 : 1;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -102,7 +102,7 @@
             
             if(self.model.hasPropertySelected)
             {
-                cell.textLabel.text = @"54 Slipway House";
+                cell.textLabel.text = self.model.apartmentName;
             }
             else
             {

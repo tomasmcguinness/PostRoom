@@ -12,10 +12,10 @@
 
 @interface PostViewController : UITableViewController<PostModelDelegate, UIAlertViewDelegate>
 
-@property (nonatomic) SettingsModel *settingsModel;
 @property (nonatomic) UILabel *label;
 @property (nonatomic) UILabel *dateLabel;
 @property (nonatomic) UIActivityIndicatorView *refreshingIndicator;
 @property (nonatomic) PostModel *model;
+@property (nonatomic) SettingsModel *settingsModel;
 
 @end

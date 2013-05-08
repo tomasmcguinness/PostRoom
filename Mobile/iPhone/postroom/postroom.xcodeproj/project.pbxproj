@@ -45,6 +45,7 @@
 		2CFED3E317212B4D00A5E599 /* postroomTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFED3E217212B4D00A5E599 /* postroomTests.m */; };
 		2CFED3EF17212DC700A5E599 /* PostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFED3EE17212DC700A5E599 /* PostViewController.m */; };
 		2CFED3F217212F8700A5E599 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFED3F117212F8700A5E599 /* SettingsViewController.m */; };
+		C307641E173A348F005CE325 /* RegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C307641D173A348F005CE325 /* RegistrationViewController.m */; };
 		FE1EF8EBF67440EA9077F7B1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E1D5D87470F14AB3A2E4A23A /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -117,6 +118,8 @@
 		2CFED3F017212F8700A5E599 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		2CFED3F117212F8700A5E599 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		3303D8FD705249E9A381B492 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		C307641C173A348F005CE325 /* RegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistrationViewController.h; sourceTree = "<group>"; };
+		C307641D173A348F005CE325 /* RegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistrationViewController.m; sourceTree = "<group>"; };
 		E1D5D87470F14AB3A2E4A23A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -290,6 +293,8 @@
 				2CA3DB741721B31300401B40 /* EstateViewController.m */,
 				2CFED3ED17212DC700A5E599 /* PostViewController.h */,
 				2CFED3EE17212DC700A5E599 /* PostViewController.m */,
+				C307641C173A348F005CE325 /* RegistrationViewController.h */,
+				C307641D173A348F005CE325 /* RegistrationViewController.m */,
 				2CFED3F017212F8700A5E599 /* SettingsViewController.h */,
 				2CFED3F117212F8700A5E599 /* SettingsViewController.m */,
 			);
@@ -455,6 +460,7 @@
 				2CA3DB951722994D00401B40 /* PostModel.m in Sources */,
 				2C52B78017324C2D0076F37F /* NotificationModel.m in Sources */,
 				2CCC57591737ED8C00071A34 /* UITableViewCellWithSwitch.m in Sources */,
+				C307641E173A348F005CE325 /* RegistrationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -30,7 +30,6 @@
     [super viewDidLoad];
     
     self.navigationItem.title = @"Estates";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
     
     [self.model loadEstates];
 

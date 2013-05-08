@@ -48,10 +48,23 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+- (NSString *)deviceIdentifier
+{
+    NSString *name = [[NSUserDefaults standardUserDefaults] valueForKey:@"DeviceIdentifier"];
+    return name;
+}
+
+- (void)setDeviceIdentifier:(NSString *)deviceIdentifier
+{
+    [[NSUserDefaults standardUserDefaults] setObject:deviceIdentifier forKey:@"DeviceIdentifier"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 - (BOOL)newPostNotificationsEnabled
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSNumber *number = [defaults valueForKey:@"NotificationsEnabled"];
+    
     return [number boolValue];
 }
 
@@ -69,11 +82,63 @@
     return selectedProperty != nil;
 }
 
+- (void)updateLocationBasedPostNotificationSetting:(BOOL)enabled;
+{
+    
+}
+
+- (void)registerUserInApartment:(Apartment *)apartment
+{
+    NSString *template = @"http://postroom.azurewebsites.net/api/resident?apartmentId=%@&uniqueUserIdentifier=%@";
+    
+    NSString *url = [NSString stringWithFormat:template, apartment.apartmentId, self.deviceIdentifier];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
+    [request setHTTPMethod:@"PUT"];
+    
+    [self.delegate registeringApartmentStarted];
+    
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error )
+     {
+         NSHTTPURLResponse *httpResp = (NSHTTPURLResponse *)response;
+         
+         if(error)
+         {
+             NSLog(@"Error getting response: %@", [error localizedDescription]);
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [self.delegate registeringApartmentFailed];
+             });
+         }
+         else
+         {
+             NSLog(@"Status: %d", httpResp.statusCode);
+             NSLog(@"Body: %@", [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSASCIIStringEncoding]);
+             
+             if(httpResp.statusCode == 201)
+             {
+                 [self updateUserRegistrationSettings:apartment];
+                 
+                 dispatch_async(dispatch_get_main_queue(), ^{
+                     [[NSNotificationCenter defaultCenter] postNotificationName:@"UserRegistered" object:nil];
+                     [self.delegate registeringApartmentComplete];
+                 });
+             }
+             else
+             {
+                 dispatch_async(dispatch_get_main_queue(), ^{
+                     [self.delegate registeringApartmentFailed];
+                 });
+             }
+         }
+     }];
+}
+
 - (void)updateNewPostNotificationSetting:(BOOL)enabled;
 {
     NSUUID *uniqueIdentifier = [[UIDevice currentDevice] identifierForVendor];
     
-    NSString *template = @"http://postroom.azurewebsites.net/api/resident?uniqueUserIdentifier=%@&alertOnNewParcel=%@&deviceIdentifier=%@";
+    NSString *template = @"http://postroom.azurewebsites.net/api/resident?uniqueUserIdentifier=%@&alertOnNewPackage=%@&deviceIdentifier=%@";
     NSString *url = [NSString stringWithFormat:template, [uniqueIdentifier UUIDString],[NSNumber numberWithBool:enabled], self.deviceIdentifier];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
@@ -117,62 +182,11 @@
      }];
 }
 
-- (void)updateLocationBasedPostNotificationSetting:(BOOL)enabled;
-{
-    
-}
-
-- (void)registerUserInApartment:(Apartment *)apartment
-{
-    NSUUID *uniqueIdentifier = [[UIDevice currentDevice] identifierForVendor];
-    
-    NSString *template = @"http://postroom.azurewebsites.net/api/resident?apartmentId=%@&uniqueUserIdentifier=%@";
-    NSString *url = [NSString stringWithFormat:template, apartment.apartmentId, [uniqueIdentifier UUIDString]];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
-    [request setHTTPMethod:@"PUT"];
-    
-    [self.delegate registeringApartmentStarted];
-    
-    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-    
-    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error )
-     {
-         NSHTTPURLResponse *httpResp = (NSHTTPURLResponse *)response;
-         
-         if(error)
-         {
-             NSLog(@"Error getting response: %@", [error localizedDescription]);
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 [self.delegate registeringApartmentFailed];
-             });
-         }
-         else
-         {
-             NSLog(@"Status: %d", httpResp.statusCode);
-             NSLog(@"Body: %@", [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSASCIIStringEncoding]);
-             
-             if(httpResp.statusCode == 201)
-             {
-                 [self updateUserRegistrationSettings:apartment];
-                 
-                 dispatch_async(dispatch_get_main_queue(), ^{
-                     [self.delegate registeringApartmentComplete];
-                 });
-             }
-             else
-             {
-                 dispatch_async(dispatch_get_main_queue(), ^{
-                     [self.delegate registeringApartmentFailed];
-                 });
-             }
-         }
-     }];
-}
-
 - (void)updateUserRegistrationSettings:(Apartment *)apartment
 {
     self.apartmentId = apartment.apartmentId;
     self.apartmentName = apartment.friendlyName;
+    self.newPostNotificationsEnabled = YES;
 }
 
 - (void)registerForNotificationsOfNewPost
@@ -207,57 +221,7 @@
 
 - (void)registerForPushNotifications
 {
-#ifndef DEBUG
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge];
-#endif
-}
-
-- (void)storeNotificationDeviceIdentifier:(NSString *)deviceIdentifier
-{
-    [[NSUserDefaults standardUserDefaults] setObject:deviceIdentifier forKey:@"DeviceIdentifier"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    NSUUID *uniqueIdentifier = [[UIDevice currentDevice] identifierForVendor];
-    
-    NSString *format = @"http://postroom.azurewebsites.net/api/resident?uniqueUserIdentifier=%@&deviceIdentifier=%@";
-    NSString *url = [NSString stringWithFormat:format, [uniqueIdentifier UUIDString], deviceIdentifier];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
-    [request setHTTPMethod:@"PUT"];
-    
-    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-    
-    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error )
-     {
-         NSHTTPURLResponse *httpResp = (NSHTTPURLResponse *)response;
-         
-         if(error)
-         {
-             NSLog(@"Error getting response: %@", [error localizedDescription]);
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 //[self.delegate registeringApartmentFailed];
-             });
-         }
-         else
-         {
-             NSLog(@"Status: %d", httpResp.statusCode);
-             NSLog(@"Body: %@", [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSASCIIStringEncoding]);
-             
-             if(httpResp.statusCode == 200)
-             {
-                 dispatch_async(dispatch_get_main_queue(), ^{
-                     [self.delegate registeringApartmentComplete];
-                 });
-             }
-             else
-             {
-                 dispatch_async(dispatch_get_main_queue(), ^{
-                     //[self.delegate registeringApartmentFailed];
-                 });
-             }
-         }
-     }];
-    
 }
 
 #pragma mark - CLLocationManagerDelegate

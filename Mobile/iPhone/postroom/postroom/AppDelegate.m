@@ -16,6 +16,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    self.settingsModel = [[SettingsModel alloc] init];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     UITabBarController *tabbarController = [[UITabBarController alloc] init];
@@ -33,14 +35,22 @@
     
     tabbarController.viewControllers = [NSArray arrayWithObjects:postNavController, settingsNavController, nil];
     
-    //self.settingsModel = [[SettingsModel alloc] init];
-    //[self.settingsModel registerForNotificationsOfNewPost];
+    RegistrationViewController *regController = [[RegistrationViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    regController.navigationItem.title = @"Register";
+    UINavigationController *regNavController = [[UINavigationController alloc] initWithRootViewController:regController];
     
     self.window.rootViewController = tabbarController;
     
-    // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    if(!self.settingsModel.hasPropertySelected)
+    {
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge];
+
+        [self.window.rootViewController presentViewController:regNavController animated:YES completion:nil];
+    }
+    
     return YES;
 }
 
@@ -100,7 +110,7 @@
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
-    NSLog(@"Failed to register: %@", [error localizedDescription]          );
+    NSLog(@"Failed to register: %@", [error localizedDescription]);
 }
 
 #pragma mark - Core Data stack

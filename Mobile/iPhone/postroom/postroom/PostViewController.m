@@ -68,7 +68,6 @@
 
 - (void)refresh
 {
-    [self.refreshingIndicator startAnimating];
     [self.model updatePost];
 }
 
@@ -168,14 +167,14 @@
     
     if([self.model.numberOfItems intValue] == 0)
     {
-        self.label.text = nil;
         self.navigationController.tabBarItem.badgeValue = nil;
     }
     else
     {
-        self.label.text = [NSString stringWithFormat:@"%@", self.model.numberOfItems];
         self.navigationController.tabBarItem.badgeValue =self.label.text;
     }
+    
+    self.label.text = [NSString stringWithFormat:@"%@", self.model.numberOfItems];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex

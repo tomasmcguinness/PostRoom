@@ -36,11 +36,10 @@
     [super viewDidLoad];
     
     self.navigationItem.title = @"Apartments";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
 
-    [self.model loadApartments:[NSNumber numberWithInt:1]]; // TODO
+    [self.model loadApartments:[NSNumber numberWithInt:1]];
 }
 
 - (void)didReceiveMemoryWarning

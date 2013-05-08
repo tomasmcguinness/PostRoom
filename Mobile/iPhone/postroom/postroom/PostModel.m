@@ -13,6 +13,18 @@
 @synthesize delegate;
 @synthesize numberOfItems;
 
+- (id)init
+{
+    self = [super init];
+    
+    if(self)
+    {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePost) name:@"UserRegistered" object:nil];
+    }
+    
+    return self;
+}
+
 - (void)updatePost
 {
     BOOL hasProperty = [[[SettingsModel alloc] init] hasPropertySelected];
@@ -20,7 +32,7 @@
     if(!hasProperty)
     {
         NSLog(@"No property selected");
-        [self.delegate updateSkippedNoRegistered];
+        //[self.delegate updateSkippedNoRegistered];
         return;
     }
     
@@ -54,7 +66,7 @@
              {
                  NSDictionary *values = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
                  self.numberOfItems = [values valueForKey:@"NumberOfItemsToCollect"];
-                 
+                                  
                  dispatch_async(dispatch_get_main_queue(), ^{
                      [self.delegate updatePostComplete];
                  });
