@@ -12,5 +12,7 @@
 
 @synthesize estateId;
 @synthesize name;
+@synthesize latitude;
+@synthesize longitude;
 
 @end

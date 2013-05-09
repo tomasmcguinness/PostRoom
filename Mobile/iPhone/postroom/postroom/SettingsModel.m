@@ -48,6 +48,30 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+- (NSNumber *)latitude
+{
+    NSNumber *name = [[NSUserDefaults standardUserDefaults] valueForKey:@"Latitude"];
+    return name;
+}
+
+- (void)setLatitude:(NSNumber *)latitude
+{
+    [[NSUserDefaults standardUserDefaults] setObject:latitude forKey:@"Latitude"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSNumber *)longitude
+{
+    NSNumber *name = [[NSUserDefaults standardUserDefaults] valueForKey:@"Longitude"];
+    return name;
+}
+
+- (void)setLongitude:(NSNumber *)longitude
+{
+    [[NSUserDefaults standardUserDefaults] setObject:longitude forKey:@"Longitude"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 - (NSString *)deviceIdentifier
 {
     NSString *name = [[NSUserDefaults standardUserDefaults] valueForKey:@"DeviceIdentifier"];
@@ -75,6 +99,21 @@
     [defaults synchronize];
 }
 
+- (NSNumber *)locationPostNotificationsEnabled
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSNumber *number = [defaults objectForKey:@"LocationNotificationEnabled"];
+    
+    return number;
+}
+
+- (void)setLocationPostNotificationsEnabled:(NSNumber *)locationPostNotificationsEnabled
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:locationPostNotificationsEnabled forKey:@"LocationNotificationEnabled"];
+    [defaults synchronize];
+}
+
 - (BOOL)hasPropertySelected
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -83,12 +122,7 @@
     return selectedProperty != nil;
 }
 
-- (void)updateLocationBasedPostNotificationSetting:(BOOL)enabled;
-{
-    
-}
-
-- (void)registerUserInApartment:(Apartment *)apartment
+- (void)registerUserInApartment:(Apartment *)apartment ofBuilding:(Building *)building inEstate:(Estate *)estate
 {
     NSString *template = @"http://postroom.azurewebsites.net/api/resident?apartmentId=%@&uniqueUserIdentifier=%@";
     
@@ -118,7 +152,7 @@
              
              if(httpResp.statusCode == 201)
              {
-                 [self updateUserRegistrationSettings:apartment];
+                 [self updateUserRegistrationSettings:apartment inEstate:estate];
                  
                  dispatch_async(dispatch_get_main_queue(), ^{
                      [[NSNotificationCenter defaultCenter] postNotificationName:@"UserRegistered" object:nil];
@@ -183,10 +217,26 @@
      }];
 }
 
-- (void)updateUserRegistrationSettings:(Apartment *)apartment
+- (void)updateLocationPostNotificationSetting:(BOOL)enabled
+{
+    if(enabled)
+    {
+        [self registerForLocationNotifications];
+    }
+    else
+    {
+        
+    }
+    
+    self.locationPostNotificationsEnabled = [NSNumber numberWithBool:enabled];
+}
+
+- (void)updateUserRegistrationSettings:(Apartment *)apartment inEstate:(Estate *)estate
 {
     self.apartmentId = apartment.apartmentId;
     self.apartmentName = apartment.friendlyName;
+    self.latitude = estate.latitude;
+    self.longitude = estate.longitude;
     self.newPostNotificationsEnabled = [NSNumber numberWithBool:YES];
 }
 
@@ -211,11 +261,8 @@
     }
     
     CLLocationDegrees radius = 10.0;
+    CLLocationCoordinate2D location = CLLocationCoordinate2DMake([self.latitude floatValue],[self.longitude floatValue]);
     
-    //51.487641,-0.019782
-    CLLocationCoordinate2D location = CLLocationCoordinate2DMake(51.487641, -0.019782);
-    
-    // Create the region and start monitoring it.
     CLRegion* region = [[CLRegion alloc] initCircularRegionWithCenter:location radius:radius identifier:@"Estate"];
     [self.locationManager startMonitoringForRegion:region];
 }

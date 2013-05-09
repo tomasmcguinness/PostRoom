@@ -46,6 +46,10 @@
 		2CFED3EF17212DC700A5E599 /* PostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFED3EE17212DC700A5E599 /* PostViewController.m */; };
 		2CFED3F217212F8700A5E599 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFED3F117212F8700A5E599 /* SettingsViewController.m */; };
 		C307641E173A348F005CE325 /* RegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C307641D173A348F005CE325 /* RegistrationViewController.m */; };
+		C3873AA6173B8A64000CCF91 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3873AA2173B8A64000CCF91 /* libTestFlight.a */; };
+		C3873AA7173B8A64000CCF91 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C3873AA3173B8A64000CCF91 /* README.md */; };
+		C3873AA8173B8A64000CCF91 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = C3873AA4173B8A64000CCF91 /* release_notes.md */; };
+		C3873AAA173B8AF8000CCF91 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C3873AA9173B8AF8000CCF91 /* libz.dylib */; };
 		FE1EF8EBF67440EA9077F7B1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E1D5D87470F14AB3A2E4A23A /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -120,6 +124,11 @@
 		3303D8FD705249E9A381B492 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		C307641C173A348F005CE325 /* RegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistrationViewController.h; sourceTree = "<group>"; };
 		C307641D173A348F005CE325 /* RegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistrationViewController.m; sourceTree = "<group>"; };
+		C3873AA2173B8A64000CCF91 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		C3873AA3173B8A64000CCF91 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		C3873AA4173B8A64000CCF91 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
+		C3873AA5173B8A64000CCF91 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		C3873AA9173B8AF8000CCF91 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		E1D5D87470F14AB3A2E4A23A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -128,6 +137,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3873AAA173B8AF8000CCF91 /* libz.dylib in Frameworks */,
 				2C9B2DF717285698002F93B6 /* CoreAudio.framework in Frameworks */,
 				2C9B2DF517284DD4002F93B6 /* CoreLocation.framework in Frameworks */,
 				2CA3DB721721B05600401B40 /* QuartzCore.framework in Frameworks */,
@@ -137,6 +147,7 @@
 				2CFED3B617212B4D00A5E599 /* CoreGraphics.framework in Frameworks */,
 				2CFED3B817212B4D00A5E599 /* CoreData.framework in Frameworks */,
 				FE1EF8EBF67440EA9077F7B1 /* libPods.a in Frameworks */,
+				C3873AA6173B8A64000CCF91 /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,6 +209,7 @@
 		2CFED3A517212B4D00A5E599 = {
 			isa = PBXGroup;
 			children = (
+				C3873AA9173B8AF8000CCF91 /* libz.dylib */,
 				2C9B2DF617285698002F93B6 /* CoreAudio.framework */,
 				2C9B2DF417284DD4002F93B6 /* CoreLocation.framework */,
 				2CA3DB711721B05600401B40 /* QuartzCore.framework */,
@@ -243,6 +255,7 @@
 				2CA3DB761721B5A600401B40 /* Models */,
 				2CFED3CB17212B4D00A5E599 /* postroom.xcdatamodeld */,
 				2CFED3BA17212B4D00A5E599 /* Supporting Files */,
+				C3873AA1173B8A64000CCF91 /* TestFlightSDK1.2.4 */,
 				2CFED3EC17212DAB00A5E599 /* ViewControllers */,
 				2CCC57561737ED7600071A34 /* Views */,
 			);
@@ -299,6 +312,17 @@
 				2CFED3F117212F8700A5E599 /* SettingsViewController.m */,
 			);
 			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		C3873AA1173B8A64000CCF91 /* TestFlightSDK1.2.4 */ = {
+			isa = PBXGroup;
+			children = (
+				C3873AA2173B8A64000CCF91 /* libTestFlight.a */,
+				C3873AA3173B8A64000CCF91 /* README.md */,
+				C3873AA4173B8A64000CCF91 /* release_notes.md */,
+				C3873AA5173B8A64000CCF91 /* TestFlight.h */,
+			);
+			path = TestFlightSDK1.2.4;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -380,6 +404,8 @@
 				2CFED3CA17212B4D00A5E599 /* Default-568h@2x.png in Resources */,
 				2CA3DB971722A56600401B40 /* letter_closed@2x.png in Resources */,
 				2CA3DB991722A61000401B40 /* cog_02@2x.png in Resources */,
+				C3873AA7173B8A64000CCF91 /* README.md in Resources */,
+				C3873AA8173B8A64000CCF91 /* release_notes.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -548,8 +574,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -557,6 +583,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -569,6 +597,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "postroom/postroom-Prefix.pch";
 				INFOPLIST_FILE = "postroom/postroom-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/postroom/TestFlightSDK1.2.4\"",
+				);
 				PRODUCT_NAME = "Post Room";
 				WRAPPER_EXTENSION = app;
 			};
@@ -581,6 +613,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "postroom/postroom-Prefix.pch";
 				INFOPLIST_FILE = "postroom/postroom-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/postroom/TestFlightSDK1.2.4\"",
+				);
 				PRODUCT_NAME = "Post Room";
 				WRAPPER_EXTENSION = app;
 			};

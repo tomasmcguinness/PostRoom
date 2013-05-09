@@ -75,7 +75,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return section == 0 ? 1 : 1;
+    return section == 0 ? 1 : 2;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -144,13 +144,14 @@
     if(indexPath.row == 0)
     {
         switchCell.textLabel.text = @"New post received";
-        switchCell.cellSwitch.on = self.model.newPostNotificationsEnabled;
+        switchCell.cellSwitch.on = [self.model.newPostNotificationsEnabled boolValue];
         switchCell.cellSwitch.tag = 1;
     }
     
     if(indexPath.row == 1)
     {
         switchCell.textLabel.text = @"Nearing your apartment";
+        switchCell.cellSwitch.on = [self.model.locationPostNotificationsEnabled boolValue];
         switchCell.cellSwitch.tag = 2;
     }
 }
@@ -163,7 +164,7 @@
     }
     else if(cellSwitch.tag == 2)
     {
-        
+        [self.model updateLocationPostNotificationSetting:cellSwitch.on];
     }
 }
 

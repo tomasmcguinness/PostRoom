@@ -16,6 +16,8 @@
 
 @synthesize model;
 @synthesize settingsModel;
+@synthesize building;
+@synthesize estate;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -80,8 +82,6 @@
 
 - (void)registeringApartmentComplete
 {
-//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Complete" message:@"You have been successfully registered at this address." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles: nil];
-//    [alert show];
     [SVProgressHUD showSuccessWithStatus:@"Registered Successfully"];
     self.tabBarController.selectedIndex = 0;
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -127,7 +127,7 @@
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     Apartment *apartment = [self.model.apartments objectAtIndex:indexPath.row];
-    [self.settingsModel registerUserInApartment:apartment];
+    [self.settingsModel registerUserInApartment:apartment ofBuilding:self.building inEstate:estate];
 }
 
 @end

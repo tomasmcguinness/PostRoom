@@ -101,7 +101,7 @@
     Estate *estate = [self.model.estates objectAtIndex:indexPath.row];
     
     BuildingViewController *buildingViewController = [[BuildingViewController alloc] initWithStyle:UITableViewStylePlain];
-    buildingViewController.estateId = estate.estateId;
+    buildingViewController.estate = estate;
     
     [self.navigationController pushViewController:buildingViewController animated:YES];
 }

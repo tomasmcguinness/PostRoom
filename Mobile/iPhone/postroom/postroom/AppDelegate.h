@@ -11,6 +11,7 @@
 #import "SettingsViewController.h"
 #import "SettingsModel.h"
 #import "RegistrationViewController.h"
+#import "TestFlight.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

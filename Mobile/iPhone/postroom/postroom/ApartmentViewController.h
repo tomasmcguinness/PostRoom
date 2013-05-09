@@ -9,11 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "ApartmentModel.h"
 #import "SettingsModel.h"
+#import "Estate.h"
+#import "Building.h"
 #import <SVProgressHUD/SVProgressHUD.h>
 
 @interface ApartmentViewController : UITableViewController<ApartmentModelDelegate, SettingsModelDelegate>
 
 @property (nonatomic) ApartmentModel *model;
 @property (nonatomic) SettingsModel *settingsModel;
+@property (nonatomic, retain) Estate *estate;
+@property (nonatomic, retain) Building *building;
 
 @end

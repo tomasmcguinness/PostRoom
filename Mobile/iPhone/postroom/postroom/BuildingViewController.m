@@ -14,7 +14,7 @@
 
 @implementation BuildingViewController
 
-@synthesize estateId;
+@synthesize estate;
 @synthesize model;
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -36,7 +36,7 @@
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     
-    [self.model loadBuildings:self.estateId];
+    [self.model loadBuildings:self.estate.estateId];
 }
 
 - (void)didReceiveMemoryWarning
@@ -93,7 +93,11 @@
 {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    Building *building = [self.model.buildings objectAtIndex:indexPath.row];
+    
     ApartmentViewController *apartmentViewController = [[ApartmentViewController alloc] initWithStyle:UITableViewStylePlain];
+    apartmentViewController.estate = self.estate;
+    apartmentViewController.building = building;
     
     [self.navigationController pushViewController:apartmentViewController animated:YES];
 }

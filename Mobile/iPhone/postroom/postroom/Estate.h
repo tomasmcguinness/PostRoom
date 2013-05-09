@@ -12,5 +12,7 @@
 
 @property (nonatomic) NSNumber *estateId;
 @property (nonatomic) NSString *name;
+@property (nonatomic) NSNumber *latitude;
+@property (nonatomic) NSNumber *longitude;
 
 @end

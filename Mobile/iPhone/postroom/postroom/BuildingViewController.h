@@ -10,10 +10,11 @@
 #import "BuildingModel.h"
 #import "ApartmentViewController.h"
 #import <SVProgressHUD/SVProgressHUD.h>
+#import "Estate.h"
 
 @interface BuildingViewController : UITableViewController<BuildingModelDelegate>
 
-@property (nonatomic) NSNumber *estateId;
+@property (nonatomic, retain) Estate *estate;
 @property (nonatomic) BuildingModel *model;
 
 @end
