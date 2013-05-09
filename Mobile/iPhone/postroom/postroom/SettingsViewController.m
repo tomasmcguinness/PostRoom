@@ -22,7 +22,7 @@
     
     if (self)
     {
-        self.model = [SettingsModel alloc];
+        self.model = [[SettingsModel alloc] init];
         self.model.delegate = self;
     }
     

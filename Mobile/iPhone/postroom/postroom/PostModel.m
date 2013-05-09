@@ -12,7 +12,6 @@
 
 @synthesize delegate;
 @synthesize numberOfItems;
-@synthesize settingsModel;
 
 - (id)init
 {
@@ -21,26 +20,16 @@
     if(self)
     {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePost) name:@"UserRegistered" object:nil];
-        self.settingsModel = [[SettingsModel alloc] init];
     }
     
     return self;
 }
 
-- (void)updatePost
+- (void)updatePost:(NSString *)deviceIdentifier
 {
-    BOOL hasProperty = [[[SettingsModel alloc] init] hasPropertySelected];
-    
-    if(!hasProperty)
-    {
-        NSLog(@"No property selected");
-        //[self.delegate updateSkippedNoRegistered];
-        return;
-    }
-    
     [self.delegate updatingPost];
     
-    NSString *url = [NSString stringWithFormat:@"http://postroom.azurewebsites.net/api/resident?uniqueUserIdentifier=%@", self.settingsModel.deviceIdentifier];
+    NSString *url = [NSString stringWithFormat:@"http://postroom.azurewebsites.net/api/resident?uniqueUserIdentifier=%@", deviceIdentifier];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
     [request setHTTPMethod:@"GET"];
     

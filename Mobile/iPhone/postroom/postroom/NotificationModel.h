@@ -7,7 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
+#import "PostModel.h"
 
-@interface NotificationModel : NSObject
+@interface NotificationModel : NSObject<CLLocationManagerDelegate, PostModelDelegate>
+{
+    @private
+    UIBackgroundTaskIdentifier bgTask;
+}
+
+@property (nonatomic, strong) PostModel *postModel;
+@property (nonatomic, strong) CLLocationManager *locationManager;
+
+- (void)registerForLocationNotifications:(NSNumber *)latitude atLongitude:(NSNumber *)longitude;
+- (void)stopMonitoringLocations;
 
 @end

@@ -57,7 +57,7 @@
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     
-    [self.model updatePost];
+    [self refresh];
 }
 
 - (void)didReceiveMemoryWarning
@@ -68,7 +68,7 @@
 
 - (void)refresh
 {
-    [self.model updatePost];
+    [self.model updatePost:self.settingsModel.deviceIdentifier];
 }
 
 - (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

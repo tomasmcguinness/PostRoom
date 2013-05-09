@@ -12,6 +12,7 @@
 #import "Apartment.h"
 #import "Estate.h"
 #import "Building.h"
+#import "NotificationModel.h"
 
 @protocol SettingsModelDelegate <NSObject>
 
@@ -26,10 +27,6 @@
 @end
 
 @interface SettingsModel : NSObject<CLLocationManagerDelegate>
-{
-    @private
-    UIBackgroundTaskIdentifier bgTask;
-}
 
 @property (nonatomic) id<SettingsModelDelegate> delegate;
 @property (nonatomic) NSNumber *apartmentId;
@@ -40,11 +37,10 @@
 @property (nonatomic, readonly) BOOL hasPropertySelected;
 @property (nonatomic) NSNumber *newPostNotificationsEnabled;
 @property (nonatomic) NSNumber *locationPostNotificationsEnabled;
-@property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, retain) NotificationModel *notificationModel;
 
 - (void)updateNewPostNotificationSetting:(BOOL)enabled;
 - (void)updateLocationPostNotificationSetting:(BOOL)enabled;
 - (void)registerUserInApartment:(Apartment *)apartment ofBuilding:(Building *)building inEstate:(Estate *)estate;
-- (void)registerForNotificationsOfNewPost;
 
 @end

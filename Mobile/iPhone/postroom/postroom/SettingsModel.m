@@ -11,7 +11,7 @@
 @implementation SettingsModel
 
 @synthesize delegate;
-@synthesize locationManager;
+@synthesize notificationModel;
 
 - (id)init
 {
@@ -19,6 +19,7 @@
     
     if(self)
     {
+        self.notificationModel = [[NotificationModel alloc] init];
     }
     
     return self;
@@ -221,11 +222,11 @@
 {
     if(enabled)
     {
-        [self registerForLocationNotifications];
+        [self.notificationModel registerForLocationNotifications:self.latitude atLongitude:self.longitude];
     }
     else
     {
-        
+        [self.notificationModel stopMonitoringLocations];
     }
     
     self.locationPostNotificationsEnabled = [NSNumber numberWithBool:enabled];
@@ -240,78 +241,9 @@
     self.newPostNotificationsEnabled = [NSNumber numberWithBool:YES];
 }
 
-- (void)registerForNotificationsOfNewPost
-{
-    [self registerForPushNotifications];
-    [self registerForLocationNotifications];
-}
-
-- (void)registerForLocationNotifications
-{
-    if ( ![CLLocationManager regionMonitoringAvailable] )
-    {
-        NSLog(@"Region monitoring isn't available!");
-        return;
-    }
-    
-    if(self.locationManager == nil)
-    {
-        self.locationManager = [[CLLocationManager alloc] init];
-        self.locationManager.delegate = self;
-    }
-    
-    CLLocationDegrees radius = 10.0;
-    CLLocationCoordinate2D location = CLLocationCoordinate2DMake([self.latitude floatValue],[self.longitude floatValue]);
-    
-    CLRegion* region = [[CLRegion alloc] initCircularRegionWithCenter:location radius:radius identifier:@"Estate"];
-    [self.locationManager startMonitoringForRegion:region];
-}
-
 - (void)registerForPushNotifications
 {
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge];
-}
-
-#pragma mark - CLLocationManagerDelegate
-
-- (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error
-{
-    NSLog(@"Region monitoring failed: %@", [error localizedDescription]);
-}
-
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
-    NSLog(@"Location monitoring failed: %@", [error localizedDescription]);
-}
-
-- (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region
-{
-    NSLog(@"Region around estate is being monitored");
-}
-
-- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
-{
-    NSLog(@"Nearing estate. Checking for post...");
-    UIApplication *app = [UIApplication sharedApplication];
-    bgTask = [app beginBackgroundTaskWithExpirationHandler:^{
-        [app endBackgroundTask:bgTask];
-        bgTask = UIBackgroundTaskInvalid;
-    }];
-}
-
-- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
-{
-    NSLog(@"Leaving estate.");
-}
-
-- (void)updatePostComplete
-{
-//    UILocalNotification *localNotif = [[UILocalNotification alloc] init];
-//    localNotif.alertBody = [NSString stringWithFormat:@"You have %@ packages ready for collection", self.postModel.numberOfItems];
-//    localNotif.soundName = UILocalNotificationDefaultSoundName;
-//    localNotif.applicationIconBadgeNumber = [self.postModel.numberOfItems intValue];
-//    
-//    [[UIApplication sharedApplication] presentLocalNotificationNow:localNotif];
 }
 
 @end
