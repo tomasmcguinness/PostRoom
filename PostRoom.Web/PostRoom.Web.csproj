@@ -158,6 +158,8 @@
     <Content Include="Content\font\fontawesome-webfont.ttf" />
     <Content Include="Content\font\fontawesome-webfont.eot" />
     <Content Include="Content\font\FontAwesome.otf" />
+    <Content Include="Certificates\AppleWWDRCA.cer" />
+    <Content Include="Certificates\PostRoom Dev APNS.pfx" />
     <None Include="Properties\PublishProfiles\postroom - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\postroom - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />

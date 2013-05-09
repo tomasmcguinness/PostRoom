@@ -13,15 +13,17 @@ namespace PostRoom.Web.Controllers
     public class ResidentController : ApiController
     {
         private ResidentManager residentManager;
+        private PostManager postManager;
 
         public ResidentController()
         {
             this.residentManager = new ResidentManager();
+            this.postManager = new PostManager();
         }
 
         public HttpResponseMessage Get([FromUri]string uniqueUserIdentifier)
         {
-            int numberOfItems = residentManager.GetNumberOfItemsToCollection(uniqueUserIdentifier);
+            int numberOfItems = postManager.GetNumberOfItemsToCollection(uniqueUserIdentifier);
 
             ResidentStatusModel model = new ResidentStatusModel()
             {
