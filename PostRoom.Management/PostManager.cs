@@ -44,7 +44,11 @@ namespace PostRoom.Management
           {
             if (string.IsNullOrEmpty(resident.UniqueIdentifier)) continue;
 
-            notificationService.SendiPhonePushNotification(resident.UniqueIdentifier, totalPackages);
+            try
+            {
+                notificationService.SendiPhonePushNotification(resident.UniqueIdentifier, totalPackages);
+            }
+            catch { }
           }
         }
 
