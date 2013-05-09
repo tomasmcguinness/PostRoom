@@ -19,10 +19,17 @@
     
     if(self)
     {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePost) name:@"UserRegistered" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePostFromNotifications:) name:@"UserRegistered" object:nil];
     }
     
     return self;
+}
+
+- (void)updatePostFromNotifications:(NSNotification *)notification
+{
+    NSLog(@"Device Identifier: %@", notification.object);
+    NSString *deviceIdentifier = (NSString *)notification.object;
+    [self updatePost:deviceIdentifier];
 }
 
 - (void)updatePost:(NSString *)deviceIdentifier

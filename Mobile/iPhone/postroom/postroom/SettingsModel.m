@@ -153,10 +153,14 @@
              
              if(httpResp.statusCode == 201)
              {
+                 NSLog(@"User successfully registered at apartment: %@", apartment.friendlyName);
                  [self updateUserRegistrationSettings:apartment inEstate:estate];
                  
                  dispatch_async(dispatch_get_main_queue(), ^{
-                     [[NSNotificationCenter defaultCenter] postNotificationName:@"UserRegistered" object:nil];
+                     NSLog(@"Sending notifications for device: %@", self.deviceIdentifier);
+                     NSNotification *notification = [NSNotification notificationWithName:@"UserRegistered" object:self.deviceIdentifier];
+                     [[NSNotificationCenter defaultCenter] postNotification:notification];
+                     
                      [self.delegate registeringApartmentComplete];
                  });
              }

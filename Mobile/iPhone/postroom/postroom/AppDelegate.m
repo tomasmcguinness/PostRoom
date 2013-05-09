@@ -48,10 +48,10 @@
     
     if(!self.settingsModel.hasPropertySelected)
     {
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge];
-
         [self.window.rootViewController presentViewController:regNavController animated:YES completion:nil];
     }
+    
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge];
     
     return YES;
 }
@@ -113,6 +113,7 @@
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
     NSLog(@"Failed to register: %@", [error localizedDescription]);
+    [[SettingsModel alloc] init].deviceIdentifier = @"SIMULATOR-DEVICE-IDENTIFIER";
 }
 
 #pragma mark - Core Data stack

@@ -52,14 +52,8 @@
                  
                      model.estateId = [estateItem valueForKey:@"EstateId"];
                      model.name = [estateItem valueForKey:@"Name"];
-                     
-                     
-                     model.latitude = [NSNumber numberWithFloat:51.487641];
-                     model.longitude = [NSNumber numberWithFloat:-0.019782];
-                     /*
                      model.longitude = [estateItem valueForKey:@"Longitude"];
                      model.latitude = [estateItem valueForKey:@"Latitude"];
-                     */
                      
                      [downloadedEstates addObject:model];
                  }

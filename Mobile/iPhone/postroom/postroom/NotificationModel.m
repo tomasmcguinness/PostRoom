@@ -110,7 +110,7 @@
 - (void)updatePostComplete
 {
     UILocalNotification *localNotif = [[UILocalNotification alloc] init];
-    localNotif.alertBody = [NSString stringWithFormat:@"You have %@ package(s) ready for collection", self.postModel.numberOfItems];
+    localNotif.alertBody = [NSString stringWithFormat:@"You have %@ package(s) ready zfor collection", self.postModel.numberOfItems];
     localNotif.soundName = UILocalNotificationDefaultSoundName;
     localNotif.applicationIconBadgeNumber = [self.postModel.numberOfItems intValue];
     
