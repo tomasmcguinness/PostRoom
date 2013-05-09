@@ -9,5 +9,9 @@ namespace PostRoom.Web.Models
     {
         public long EstateId { get; set; }
         public string Name { get; set; }
+
+        public double Latitude { get; set; }
+
+        public double Longitude { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace PostRoom.Data.Migrations
 
         protected override void Seed(PostRoom.Data.PostRoomDataContext context)
         {
-            var newEstate = new Estate() { Name = "Burrells Wharf" };
+            var newEstate = new Estate() { Name = "Burrells Wharf", Latitude = 51.487582, Longitude = -0.019854 };
             context.Estates.AddOrUpdate(newEstate);
 
             var building = new Building() { Name = "Slipway House", Estate = newEstate };
