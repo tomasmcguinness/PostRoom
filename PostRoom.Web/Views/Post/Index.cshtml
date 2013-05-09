@@ -58,7 +58,7 @@
         <label>Apartment</label>
         <input id="apartmentName" class="apartmentSearch" autocomplete="off" type="text" />
         <label>Recipient</label>
-        <input type="text" />
+        <input type="text" data-bind="value: recipient" />
     </div>
     <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
@@ -66,14 +66,17 @@
     </div>
 </div>
 
-<div id="updateApartmentDeliveriesModal" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="updateApartmentDeliveriesModal" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-bind="with: selectedApartment">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h3>Update Deliveries</h3>
-        <h5>Apartment 6, Slipway House</h5>
+        <h5 data-bind="text: friendlyName"></h5>
     </div>
     <div class="modal-body">
-        <table class="table table-bordered">
+        <div data-bind="visible: isLoading">
+            <i class="icon-spinner icon-spin"></i> Loading Packages...
+        </div>
+        <table class="table table-bordered" data-bind="visible: isLoading() === false">
             <thead>
                 <tr>
                     <th>Date</th>
@@ -81,12 +84,13 @@
                     <th>Collected</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr class="success">
-                    <td>10/12/2013</td>
-                    <td>Chetna Mistry</td>
+            <tbody data-bind="foreach: packages">
+                <tr>
+                    <td><span data-bind="text: date"></span></td>
+                    <td><span data-bind="text: recipient"></span></td>
                     <td>
-                        <input type="checkbox" /></td>
+                        <input type="checkbox" />
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -108,13 +112,14 @@
 
         function recordDeliveryModal() {
             var self = this;
+            self.recipient = ko.observable();
             self.recordDelivery = function () {
 
                 $.ajax({
                     type: "Post",
                     url: "@Url.Action("RecordDelivery")",
                     dataType: "json",
-                    data: { apartmentId: selectedApartmentId }
+                    data: { apartmentId: selectedApartmentId, recipient: self.recipient() }
                 }).done(function (data) {
 
                     model.refreshPost();
@@ -125,7 +130,8 @@
         };
 
         function postModel() {
-            var self = this;
+          var self = this;
+            self.selectedApartment = ko.observable();
             self.isLoading = ko.observable();
             self.buildings = ko.observableArray();
             self.recordDelivery = new recordDeliveryModal();
@@ -169,13 +175,54 @@
         function apartmentModel() {
             var self = this;
 
+            self.apartmentId = ko.observable();
             self.number = ko.observable();
             self.friendlyName = ko.observable();
-
+            self.isLoading = ko.observable(false);
             self.showUpdateDialog = function () {
+                model.selectedApartment(self);
+                self.loadPackagesForCollection();
                 $("#updateApartmentDeliveriesModal").modal();
             };
+
+            self.packages = ko.observableArray();
+
+            self.loadPackagesForCollection = function () {
+
+              self.isLoading(true);
+
+              $.ajax({
+                type: "Get",
+                dataType: "json",
+                url: "@Url.Action("PackagesForApartment")",
+                data: { apartmentId: self.apartmentId() },
+                }).done(function (data) {
+
+                  self.isLoading(false);
+                  self.packages.removeAll();
+
+                  if (data == null) {
+                    return;
+                  }
+
+                  for (var i = 0; i < data.length; i++) {
+                    var model = new deliveryModel();
+                    model.recipient(data[i].Name);
+                    model.date(data[i].Date);
+                    self.packages.push(model);
+                  }
+
+                  self.isLoading(false);
+                });
+            };
         };
+
+        function deliveryModel() {
+            var self = this;
+
+            self.recipient = ko.observable();
+            self.date = ko.observable();
+        }
 
         function buildingModel() {
             var self = this;
@@ -220,6 +267,8 @@
 
                         for (var i = 0; i < data.length; i++) {
                             var apartment = new apartmentModel();
+
+                            apartment.apartmentId(data[i].ApartmentId);
                             apartment.number(data[i].Number);
                             apartment.friendlyName(data[i].FriendlyName);
 

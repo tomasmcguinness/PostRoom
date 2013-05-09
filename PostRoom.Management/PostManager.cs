@@ -84,5 +84,18 @@ namespace PostRoom.Management
                 return package;
             }
         }
+
+        public List<Delivery> GetItemsForCollection(long apartmentId)
+        {
+            using (var ctx = new PostRoomDataContext())
+            {
+              var deliveries = (from d in ctx.Deliveries
+                             join a in ctx.Apartments on d.ApartmentId equals a.ApartmentId
+                             where a.ApartmentId == apartmentId
+                             select d);
+
+              return deliveries.ToList();
+            }
+        }
     }
 }

@@ -66,5 +66,20 @@ namespace PostRoom.Web.Controllers
             postManager.RecordDelivery(apartmentId, recipient);
             return Json(true);
         }
+
+        [OutputCache(Duration = 0)]
+        public JsonResult PackagesForApartment(long apartmentId)
+        {
+            var items = postManager.GetItemsForCollection(apartmentId);
+
+            var packageModels = new List<DeliveryItemModel>();
+
+            foreach (var apartment in items)
+            {
+                packageModels.Add(new DeliveryItemModel() { Date = apartment.DeliveryDate, Name = apartment.Recipient });
+            }
+
+            return Json(packageModels, JsonRequestBehavior.AllowGet);
+        }
     }
 }
