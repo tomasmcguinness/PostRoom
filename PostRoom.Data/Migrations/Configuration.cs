@@ -85,24 +85,24 @@ namespace PostRoom.Data.Migrations
 
             building.Apartments = new List<Apartment>();
 
-            for (int i = 1; i < 55; i++)
-            {
-                var apartment = new Apartment() { Number = i };
-                apartment.FriendlyName = string.Format("{0} {1}", i, building.Name);
-                building.Apartments.Add(apartment);
-            }
-
-            building = new Building() { Name = "Plate House", Estate = newEstate };
-            context.Buildings.AddOrUpdate(building);
+            AddApartmentsToBuilding(building, 1, 3);
+            AddApartmentsToBuilding(building, 5, 13);
+            AddApartmentsToBuilding(building, 15, 23);
+            AddApartmentsToBuilding(building, 25, 43);
+            AddApartmentsToBuilding(building, 45, 54);
 
             building = new Building() { Name = "Traffrail House", Estate = newEstate };
             context.Buildings.AddOrUpdate(building);
 
-            building = new Building() { Name = "Chart House", Estate = newEstate };
-            context.Buildings.AddOrUpdate(building);
+            AddApartmentsToBuilding(building, 1, 3);
+            AddApartmentsToBuilding(building, 5, 13);
+            AddApartmentsToBuilding(building, 15, 23);
+            AddApartmentsToBuilding(building, 25, 43);
 
             building = new Building() { Name = "Wheel House", Estate = newEstate };
             context.Buildings.AddOrUpdate(building);
+
+            AddApartmentsToBuilding(building, 1, 77);
 
             context.SaveChanges();
         }
