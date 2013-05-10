@@ -8,8 +8,7 @@ namespace PostRoom.Web.Models
     public class ApartmentModel
     {
         public long ApartmentId { get; set; }
-        public int ApartmentNumber { get; set; }
-
         public string FriendlyName { get; set; }
+        public int DeliveryCount { get; set; }
     }
 }

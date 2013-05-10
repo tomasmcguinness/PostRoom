@@ -16,5 +16,7 @@ namespace PostRoom.Data
 
         [ForeignKey("ApartmentId")]
         public virtual Apartment Apartment { get; set; }
+
+        public DateTime? CollectionDate { get; set; }
     }
 }

@@ -37,19 +37,19 @@ namespace PostRoom.Management
 
         private void NotifyDeliveryToApartment(long apartmentId)
         {
-          var residents = residentManager.GetResidentsForApartment(apartmentId);
-          var totalPackages = this.GetTotalOutstandingPackagesForApartment(apartmentId);
+            var residents = residentManager.GetResidentsForApartment(apartmentId);
+            var totalPackages = this.GetTotalOutstandingPackagesForApartment(apartmentId);
 
-          foreach (var resident in residents)
-          {
-            if (string.IsNullOrEmpty(resident.UniqueIdentifier)) continue;
-
-            try
+            foreach (var resident in residents)
             {
-                notificationService.SendiPhonePushNotification(resident.UniqueIdentifier, totalPackages);
+                if (string.IsNullOrEmpty(resident.UniqueIdentifier)) continue;
+
+                try
+                {
+                    notificationService.SendiPhonePushNotification(resident.UniqueIdentifier, totalPackages);
+                }
+                catch { }
             }
-            catch { }
-          }
         }
 
         public int GetNumberOfItemsToCollection(string uniqueUserIdentifier)
@@ -65,7 +65,7 @@ namespace PostRoom.Management
             {
                 var package = (from d in ctx.Deliveries
                                join a in ctx.Apartments on d.ApartmentId equals a.ApartmentId
-                               where a.BuildingId == buildingId
+                               where a.BuildingId == buildingId && d.CollectionDate.HasValue == false
                                select d).Count();
 
                 return package;
@@ -78,7 +78,7 @@ namespace PostRoom.Management
             {
                 var package = (from d in ctx.Deliveries
                                join a in ctx.Apartments on d.ApartmentId equals a.ApartmentId
-                               where a.ApartmentId == apartmentId
+                               where a.ApartmentId == apartmentId && d.CollectionDate.HasValue == false
                                select d).Count();
 
                 return package;
@@ -89,12 +89,40 @@ namespace PostRoom.Management
         {
             using (var ctx = new PostRoomDataContext())
             {
-              var deliveries = (from d in ctx.Deliveries
-                             join a in ctx.Apartments on d.ApartmentId equals a.ApartmentId
-                             where a.ApartmentId == apartmentId
-                             select d);
+                var deliveries = (from d in ctx.Deliveries
+                                  join a in ctx.Apartments on d.ApartmentId equals a.ApartmentId
+                                  where a.ApartmentId == apartmentId && d.CollectionDate.HasValue == false
+                                  select d);
 
-              return deliveries.ToList();
+                return deliveries.ToList();
+            }
+        }
+
+        public void MarkDeliveryAsCollected(long deliveryId)
+        {
+            using (var ctx = new PostRoomDataContext())
+            {
+                var delivery = ctx.Deliveries.Find(deliveryId);
+                delivery.CollectionDate = DateTime.UtcNow;
+                ctx.SaveChanges();
+            }
+        }
+
+        public void MarkAllDeliveriesAsCollected(long apartmentId)
+        {
+            using (var ctx = new PostRoomDataContext())
+            {
+                var deliveries = (from d in ctx.Deliveries
+                                  join a in ctx.Apartments on d.ApartmentId equals a.ApartmentId
+                                  where a.ApartmentId == apartmentId
+                                  select d);
+
+                foreach (var delivery in deliveries)
+                {
+                    delivery.CollectionDate = DateTime.UtcNow;
+                }
+
+                ctx.SaveChanges();
             }
         }
     }

@@ -13,7 +13,7 @@ namespace PostRoom.Management
 
         public PropertyManager()
         {
-          context = new PostRoomDataContext();
+            context = new PostRoomDataContext();
         }
 
         public List<Estate> GetEstates()
@@ -28,6 +28,15 @@ namespace PostRoom.Management
 
         public List<Data.Apartment> GetApartmentsForBuilding(long buildingId)
         {
+            ////using (var ctx = new PostRoomDataContext())
+            ////{
+            //var deliveries = (from d in ctx.Deliveries
+            //                  join a in ctx.Apartments on d.ApartmentId equals a.ApartmentId
+            //                  where a.ApartmentId == apartmentId && d.CollectionDate.HasValue == false
+            //                  select d);
+
+            //return deliveries.ToList();
+            ////}
             return context.Buildings.Find(buildingId).Apartments.ToList();
         }
     }
