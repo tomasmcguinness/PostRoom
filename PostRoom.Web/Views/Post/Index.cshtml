@@ -30,7 +30,7 @@
         <div class="accordion-body" data-bind="css: { collapse: showApartments() === false }">
             <div class="accordion-inner">
                 <div data-bind="visible: loadingApartments">
-                    <i class="icon-spinner icon-spin"></i>&#186;Loading Apartment List...
+                    <i class="icon-spinner icon-spin"></i>&nbsp;Loading Apartment List...
                 </div>
                 <table class="table table-bordered" data-bind="visible: loadingApartments() === false">
                     <tbody data-bind="foreach: apartments">
@@ -38,7 +38,7 @@
                             <td style="vertical-align: middle;">
                                 <span data-bind="text: friendlyName"></span>
                                 <button class="btn btn-small" style="float: right;" data-bind="click: showUpdateDialog">Update</button>
-                                <span class="badge badge-info" style="float: right; margin-top: 5px; margin-right: 15px;"></span>
+                                <span class="badge badge-info" style="float: right; margin-top: 5px; margin-right: 15px;" data-bind="text: deliveryCount, visible: deliveryCount() > 0"></span>
                             </td>
                         </tr>
                     </tbody>
@@ -61,7 +61,7 @@
         <input type="text" data-bind="value: recipient" />
     </div>
     <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+        <button class="btn" data-dismiss="modal" aria-hidden="true" data-bind="click: cancel">Cancel</button>
         <button class="btn btn-primary" data-bind="click: recordDelivery">Record</button>
     </div>
 </div>
@@ -74,30 +74,37 @@
     </div>
     <div class="modal-body">
         <div data-bind="visible: isLoading">
-            <i class="icon-spinner icon-spin"></i> Loading Packages...
+            <i class="icon-spinner icon-spin"></i>Loading Packages...
         </div>
-        <table class="table table-bordered" data-bind="visible: isLoading() === false">
+        <table class="table table-bordered" data-bind="visible: isLoading() === false && hasPackages()">
             <thead>
                 <tr>
                     <th>Date</th>
                     <th>Name</th>
-                    <th>Collected</th>
+                    <th style="text-align: center;">Collected</th>
                 </tr>
             </thead>
             <tbody data-bind="foreach: packages">
-                <tr>
+                <tr data-bind="css: { success: collected }">
                     <td><span data-bind="text: date"></span></td>
                     <td><span data-bind="text: recipient"></span></td>
-                    <td>
-                        <input type="checkbox" />
+                    <td style="text-align: center;">
+                        <span data-bind="visible: isLoading">
+                            <i class="icon-spinner icon-spin"></i></span>
+                        <span data-bind="visible: isLoading() === false && collected()">
+                            <i class="icon-ok"></i></span>
+                        <button type="button" class="btn btn-small" data-bind="click: markPackagedAsCollected, visible: isLoading() === false && collected() === false">Collected</button>
                     </td>
                 </tr>
             </tbody>
         </table>
+        <div data-bind="visible: isLoading() === false && hasPackages() === false">
+            There are no packages for collection at this time.
+        </div>
     </div>
     <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-        <button class="btn btn-primary">Update</button>
+        <button class="btn btn-primary" data-bind="enable: hasUncollectedPackages">Mark All Collected</button>
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
     </div>
 </div>
 
@@ -125,12 +132,17 @@
                     model.refreshPost();
                     $("#recordDeliveryModal").modal("hide");
 
+                    self.recipient("");
                 });
+            };
+
+            self.cancel = function () {
+                self.recipient("");
             };
         };
 
         function postModel() {
-          var self = this;
+            var self = this;
             self.selectedApartment = ko.observable();
             self.isLoading = ko.observable();
             self.buildings = ko.observableArray();
@@ -138,6 +150,7 @@
             self.refreshPost = function () {
 
                 for (var i = 0; i < self.buildings().length; i++) {
+                    self.buildings()[i].showApartments(false);
                     self.buildings()[i].load();
                 }
 
@@ -178,6 +191,7 @@
             self.apartmentId = ko.observable();
             self.number = ko.observable();
             self.friendlyName = ko.observable();
+            self.deliveryCount = ko.observable();
             self.isLoading = ko.observable(false);
             self.showUpdateDialog = function () {
                 model.selectedApartment(self);
@@ -186,42 +200,78 @@
             };
 
             self.packages = ko.observableArray();
+            self.hasPackages = ko.computed(function () {
+                return self.packages().length > 0;
+            }, self);
+            self.hasUncollectedPackages = ko.computed(function () {
 
+                if (self.packages().length == 0) return false;
+
+                for (var i = 0; i < self.packages().length; i++) {
+
+                    if (self.packages()[i].collected())
+                        return false;
+                }
+
+            }, self);
             self.loadPackagesForCollection = function () {
 
-              self.isLoading(true);
+                self.isLoading(true);
 
-              $.ajax({
-                type: "Get",
-                dataType: "json",
-                url: "@Url.Action("PackagesForApartment")",
-                data: { apartmentId: self.apartmentId() },
+                $.ajax({
+                    type: "Get",
+                    dataType: "json",
+                    url: "@Url.Action("DeliveriesForApartment")",
+                    data: { apartmentId: self.apartmentId() },
                 }).done(function (data) {
 
-                  self.isLoading(false);
-                  self.packages.removeAll();
+                    self.isLoading(false);
+                    self.packages.removeAll();
 
-                  if (data == null) {
-                    return;
-                  }
+                    if (data == null) {
+                        return;
+                    }
 
-                  for (var i = 0; i < data.length; i++) {
-                    var model = new deliveryModel();
-                    model.recipient(data[i].Name);
-                    model.date(data[i].Date);
-                    self.packages.push(model);
-                  }
+                    for (var i = 0; i < data.length; i++) {
+                        var model = new deliveryModel();
+                        model.deliveryId(data[i].DeliveryId);
+                        model.recipient(data[i].Name);
+                        model.date(new Date(parseInt(data[i].Date.substr(6))));
+                        self.packages.push(model);
+                    }
 
-                  self.isLoading(false);
+                    self.isLoading(false);
                 });
+            };
+
+            self.markAllPackagesCollection = function () {
+
             };
         };
 
         function deliveryModel() {
             var self = this;
 
+            self.deliveryId = ko.observable();
             self.recipient = ko.observable();
             self.date = ko.observable();
+            self.collected = ko.observable(false);
+            self.isLoading = ko.observable(false);
+
+            self.markPackagedAsCollected = function () {
+
+                self.isLoading(true);
+
+                $.ajax({
+                    type: "Post",
+                    url: "@Url.Action("MarkDeliveryAsCollected")",
+                    data: { deliveryId: self.deliveryId() },
+                    dataType: "json"
+                }).done(function (data) {
+                    self.isLoading(false);
+                    self.collected(true);
+                });
+            }
         }
 
         function buildingModel() {
@@ -269,7 +319,7 @@
                             var apartment = new apartmentModel();
 
                             apartment.apartmentId(data[i].ApartmentId);
-                            apartment.number(data[i].Number);
+                            apartment.deliveryCount(data[i].DeliveryCount);
                             apartment.friendlyName(data[i].FriendlyName);
 
                             self.apartments.push(apartment);

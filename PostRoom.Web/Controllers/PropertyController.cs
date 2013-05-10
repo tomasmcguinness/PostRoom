@@ -11,73 +11,73 @@ using System.Web.Http;
 
 namespace PostRoom.Web.Controllers
 {
-  public class PropertyController : ApiController
-  {
-    private PropertyManager propertyManager;
-
-    public PropertyController()
+    public class PropertyController : ApiController
     {
-      this.propertyManager = new PropertyManager();
-    }
+        private PropertyManager propertyManager;
 
-    [HttpGet]
-    public HttpResponseMessage Estates()
-    {
-      var estateList = propertyManager.GetEstates();
-
-      var estateModelList = new List<EstateModel>();
-
-      foreach (var estate in estateList)
-      {
-        estateModelList.Add(new EstateModel()
+        public PropertyController()
         {
-          EstateId = estate.EstateId,
-          Name = estate.Name,
-          Latitude = estate.Latitude.Value,
-          Longitude = estate.Longitude.Value
-        });
-      }
+            this.propertyManager = new PropertyManager();
+        }
 
-      return new HttpResponseMessage(HttpStatusCode.OK)
-      {
-        Content = new ObjectContent<List<EstateModel>>(estateModelList, new JsonMediaTypeFormatter())
-      };
+        [HttpGet]
+        public HttpResponseMessage Estates()
+        {
+            var estateList = propertyManager.GetEstates();
+
+            var estateModelList = new List<EstateModel>();
+
+            foreach (var estate in estateList)
+            {
+                estateModelList.Add(new EstateModel()
+                {
+                    EstateId = estate.EstateId,
+                    Name = estate.Name,
+                    Latitude = estate.Latitude.Value,
+                    Longitude = estate.Longitude.Value
+                });
+            }
+
+            return new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new ObjectContent<List<EstateModel>>(estateModelList, new JsonMediaTypeFormatter())
+            };
+        }
+
+        [HttpGet]
+        public HttpResponseMessage Buildings(long estateId)
+        {
+            var buildingList = propertyManager.GetBuildingsForEstate(estateId);
+
+            var modelList = new List<BuildingModel>();
+
+            foreach (var building in buildingList)
+            {
+                modelList.Add(new BuildingModel() { BuildingId = building.BuildingId, Name = building.Name });
+            }
+
+            return new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new ObjectContent<List<BuildingModel>>(modelList, new JsonMediaTypeFormatter())
+            };
+        }
+
+        [HttpGet]
+        public HttpResponseMessage Apartments(long buildingId)
+        {
+            var apartmentList = propertyManager.GetApartmentsForBuilding(buildingId);
+
+            var modelList = new List<ApartmentModel>();
+
+            foreach (var apartment in apartmentList)
+            {
+                modelList.Add(new ApartmentModel() { ApartmentId = apartment.ApartmentId, FriendlyName = apartment.FriendlyName });
+            }
+
+            return new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new ObjectContent<List<ApartmentModel>>(modelList, new JsonMediaTypeFormatter())
+            };
+        }
     }
-
-    [HttpGet]
-    public HttpResponseMessage Buildings(long estateId)
-    {
-      var buildingList = propertyManager.GetBuildingsForEstate(estateId);
-
-      var modelList = new List<BuildingModel>();
-
-      foreach (var building in buildingList)
-      {
-        modelList.Add(new BuildingModel() { BuildingId = building.BuildingId, Name = building.Name });
-      }
-
-      return new HttpResponseMessage(HttpStatusCode.OK)
-      {
-        Content = new ObjectContent<List<BuildingModel>>(modelList, new JsonMediaTypeFormatter())
-      };
-    }
-
-    [HttpGet]
-    public HttpResponseMessage Apartments(long buildingId)
-    {
-      var apartmentList = propertyManager.GetApartmentsForBuilding(buildingId);
-
-      var modelList = new List<ApartmentModel>();
-
-      foreach (var apartment in apartmentList)
-      {
-        modelList.Add(new ApartmentModel() { ApartmentId = apartment.ApartmentId, ApartmentNumber = apartment.Number, FriendlyName = apartment.FriendlyName });
-      }
-
-      return new HttpResponseMessage(HttpStatusCode.OK)
-      {
-        Content = new ObjectContent<List<ApartmentModel>>(modelList, new JsonMediaTypeFormatter())
-      };
-    }
-  }
 }

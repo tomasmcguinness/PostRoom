@@ -20,9 +20,6 @@ namespace PostRoom.Web.Controllers
         public ActionResult SearchApartments(string query)
         {
             var results = apartmentManager.SearchApartments(query);
-
-
-
             return Json(results, JsonRequestBehavior.AllowGet);
         }
     }
