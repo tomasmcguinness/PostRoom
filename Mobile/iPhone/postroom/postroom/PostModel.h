@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PackageModel.h"
 
 @protocol PostModelDelegate<NSObject>
 
@@ -20,6 +21,7 @@
 
 @property (nonatomic) id<PostModelDelegate> delegate;
 @property (nonatomic, strong) NSNumber *numberOfItems;
+@property (nonatomic, strong) NSArray *itemHistory;
 @property (nonatomic, strong) NSDate *lastUpdated;
 
 - (void)updatePost:(NSString *)deviceIdentifier;

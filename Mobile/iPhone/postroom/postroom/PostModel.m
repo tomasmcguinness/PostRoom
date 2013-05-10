@@ -12,6 +12,7 @@
 
 @synthesize delegate;
 @synthesize numberOfItems;
+@synthesize itemHistory;
 
 - (id)init
 {
@@ -62,8 +63,23 @@
              {
                  NSDictionary *values = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
                  self.numberOfItems = [values valueForKey:@"NumberOfItemsToCollect"];
-                                  
+                 
+//                 NSArray *items = [values valueForKey:@"ItemHistory"];
+//                 
+//                 NSMutableArray *packages = [NSMutableArray arrayWithCapacity:[items count]];
+//                 
+//                 for(NSDictionary *item in items)
+//                 {
+//                     PackageModel *model = [[PackageModel alloc] init];
+//                     model.recipient = @"Tom";
+//                     model.date = [NSDate date];
+//                     [packages addObject:model];
+//                 }
+//                 
+//                 self.itemHistory = [NSArray arrayWithArray:packages];
+                 
                  dispatch_async(dispatch_get_main_queue(), ^{
+                     [UIApplication sharedApplication].applicationIconBadgeNumber = [self.numberOfItems integerValue];
                      [self.delegate updatePostComplete];
                  });
              }
