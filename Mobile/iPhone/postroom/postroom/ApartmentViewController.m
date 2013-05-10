@@ -41,7 +41,7 @@
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
 
-    [self.model loadApartments:[NSNumber numberWithInt:1]];
+    [self.model loadApartments:self.building.buildingId];
 }
 
 - (void)didReceiveMemoryWarning
@@ -89,8 +89,11 @@
 
 - (void)registeringApartmentFailed
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Failed" message:@"You have not been registered at this address. Check your internet connection and try again."
-                                                   delegate:self cancelButtonTitle:@"Okay" otherButtonTitles: nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration Failed"
+                                                    message:@"You have not been registered at this address. Check your internet connection and try again."
+                                                   delegate:self
+                                          cancelButtonTitle:@"Okay"
+                                          otherButtonTitles: nil];
     [alert show];
 }
 
