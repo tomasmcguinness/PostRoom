@@ -36,7 +36,9 @@
     [super viewDidLoad];
     
     self.navigationItem.title = self.settingsModel.apartmentName;
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+                                                                                          target:self
+                                                                                          action:@selector(refresh)];
     
     self.navigationItem.title = @"Post";
     
@@ -165,16 +167,20 @@
     [self.refreshingIndicator stopAnimating];
     [self.label setHidden:NO];
     
-    if([self.model.numberOfItems intValue] == 0)
+    NSString *itemCount = [NSString stringWithFormat:@"%@", self.model.numberOfItems];
+    
+    if([self.model.numberOfItems integerValue] == 0)
     {
         self.navigationController.tabBarItem.badgeValue = nil;
+        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     }
     else
     {
-        self.navigationController.tabBarItem.badgeValue = self.label.text;
+        [UIApplication sharedApplication].applicationIconBadgeNumber = [self.model.numberOfItems integerValue];
+        self.navigationController.tabBarItem.badgeValue = itemCount;
     }
     
-    self.label.text = [NSString stringWithFormat:@"%@", self.model.numberOfItems];
+    self.label.text = itemCount;
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
