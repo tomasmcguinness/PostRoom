@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Security;
@@ -48,7 +49,8 @@ namespace PostRoom.Management
 
             bw.Write((byte)0);
 
-            string msg = string.Format("{{\"aps\":{{\"alert\":\"You have {0} package(s) for collection\",\"badge\":{0}}}}}", numberOfPackages);
+            string msg = string.Format("{{\"aps\":{{\"alert\":\"You have {0} package(s) for collection\",\"badge\":{0},\"sound\":\"default\"}}, \"packageCount\":{0}}}", numberOfPackages);
+            Debug.WriteLine(msg);
 
             // Write the data out to the stream
             //
@@ -60,6 +62,9 @@ namespace PostRoom.Management
             {
                 sslStream.Write(ms.ToArray());
             }
+
+            sslStream.Flush();
+            sslStream.Close();
         }
 
         private static X509Certificate GetPushServerCert()
