@@ -103,7 +103,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" data-bind="enable: hasUncollectedPackages">Mark All Collected</button>
+        @*<button class="btn btn-primary" data-bind="enable: hasUncollectedPackages">Mark All Collected</button>*@
         <button class="btn" data-dismiss="modal" aria-hidden="true" data-bind="click: close">Close</button>
     </div>
 </div>
@@ -122,16 +122,15 @@
             self.recipient = ko.observable();
             self.recordDelivery = function () {
 
+                $("#recordDeliveryModal").modal("hide");
+
                 $.ajax({
                     type: "Post",
                     url: "@Url.Action("RecordDelivery")",
                     dataType: "json",
                     data: { apartmentId: selectedApartmentId, recipient: self.recipient() }
                 }).done(function (data) {
-
                     model.refreshPost();
-                    $("#recordDeliveryModal").modal("hide");
-
                     self.recipient("");
                 });
             };

@@ -43,7 +43,19 @@ namespace PostRoom.Management
       foreach (var resident in residents)
       {
         if (string.IsNullOrEmpty(resident.UniqueIdentifier) || resident.UniqueIdentifier == "SIMULATOR-DEVICE-IDENTIFIER") continue;
-        notificationService.SendiPhonePushNotification(resident.UniqueIdentifier, totalPackages);
+        notificationService.SendiPhonePushNotification(resident.UniqueIdentifier, totalPackages, true);
+      }
+    }
+
+    private void NotifyCollectionFromApartment(long apartmentId)
+    {
+      var residents = residentManager.GetResidentsForApartment(apartmentId);
+      var totalPackages = this.GetTotalOutstandingPackagesForApartment(apartmentId);
+
+      foreach (var resident in residents)
+      {
+        if (string.IsNullOrEmpty(resident.UniqueIdentifier) || resident.UniqueIdentifier == "SIMULATOR-DEVICE-IDENTIFIER") continue;
+        notificationService.SendiPhonePushNotification(resident.UniqueIdentifier, totalPackages, false);
       }
     }
 
@@ -100,6 +112,8 @@ namespace PostRoom.Management
         var delivery = ctx.Deliveries.Find(deliveryId);
         delivery.CollectionDate = DateTime.UtcNow;
         ctx.SaveChanges();
+
+        NotifyCollectionFromApartment(delivery.ApartmentId);
       }
     }
 

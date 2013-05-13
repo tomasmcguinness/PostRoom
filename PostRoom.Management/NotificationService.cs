@@ -17,7 +17,7 @@ namespace PostRoom.Management
     {
         private const string SERVER = "gateway.sandbox.push.apple.com";
 
-        public void SendiPhonePushNotification(string deviceIdentifier, int numberOfPackages)
+        public void SendiPhonePushNotification(string deviceIdentifier, int numberOfPackages, bool withBody)
         {
             SslStream sslStream = null;
 
@@ -49,7 +49,17 @@ namespace PostRoom.Management
 
             bw.Write((byte)0);
 
-            string msg = string.Format("{{\"aps\":{{\"alert\":\"You have {0} package(s) for collection\",\"badge\":{0},\"sound\":\"default\"}}, \"packageCount\":{0}}}", numberOfPackages);
+            string msg = null;
+
+            if (withBody)
+            {
+                msg = string.Format("{{\"aps\":{{\"alert\":\"You have {0} package(s) for collection\",\"badge\":{0},\"sound\":\"default\"}}, \"packageCount\":{0}}}", numberOfPackages);
+            }
+            else
+            {
+                msg = string.Format("{{\"aps\":{{\"badge\":{0}}}, \"packageCount\":{0}}}", numberOfPackages);
+            }
+
             Debug.WriteLine(msg);
 
             // Write the data out to the stream

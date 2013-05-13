@@ -48,7 +48,6 @@
     <Compile Include="Apartment.cs" />
     <Compile Include="ApartmentManager.cs" />
     <Compile Include="BuildingManager.cs" />
-    <Compile Include="NotificationManager.cs" />
     <Compile Include="NotificationService.cs" />
     <Compile Include="PostManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
