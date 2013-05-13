@@ -104,7 +104,7 @@
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary" data-bind="enable: hasUncollectedPackages">Mark All Collected</button>
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        <button class="btn" data-dismiss="modal" aria-hidden="true" data-bind="click: close">Close</button>
     </div>
 </div>
 
@@ -214,6 +214,9 @@
                 }
 
             }, self);
+            self.close = function () {
+                model.refreshPost();
+            };
             self.loadPackagesForCollection = function () {
 
                 self.isLoading(true);
