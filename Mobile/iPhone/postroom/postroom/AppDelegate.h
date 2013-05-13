@@ -21,6 +21,7 @@
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
+@property (strong, nonatomic) PostViewController *postController;
 @property (strong, nonatomic) SettingsModel *settingsModel;
 
 - (void)saveContext;

@@ -14,6 +14,8 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
+@synthesize postController;
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [TestFlight takeOff:@"f3ceeafb-774f-4efc-81ad-19a10f4418f5"];
@@ -24,10 +26,10 @@
     
     UITabBarController *tabbarController = [[UITabBarController alloc] init];
     
-    PostViewController *postController = [[PostViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    self.postController = [[PostViewController alloc] initWithStyle:UITableViewStyleGrouped];
     SettingsViewController *settingsController = [[SettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     
-    UINavigationController *postNavController = [[UINavigationController alloc] initWithRootViewController:postController];
+    UINavigationController *postNavController = [[UINavigationController alloc] initWithRootViewController:self.postController];
     postNavController.tabBarItem.title = @"Post";
     postNavController.tabBarItem.image = [UIImage imageNamed:@"letter_closed"];
 
@@ -75,13 +77,21 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [self.postController refresh];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+}
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
 }
 
 - (void)saveContext

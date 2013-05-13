@@ -58,7 +58,11 @@
     [self.label setFont:[UIFont fontWithName:@"EuphemiaUCAS-Bold" size:100]];
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
-    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     [self refresh];
 }
 

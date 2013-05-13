@@ -18,4 +18,6 @@
 @property (nonatomic) PostModel *model;
 @property (nonatomic) SettingsModel *settingsModel;
 
+- (void)refresh;
+
 @end

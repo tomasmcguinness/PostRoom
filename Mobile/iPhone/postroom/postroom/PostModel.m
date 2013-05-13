@@ -21,6 +21,7 @@
     if(self)
     {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePostFromNotifications:) name:@"UserRegistered" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePostFromNotifications:) name:@"PostUpdated" object:nil];
     }
     
     return self;

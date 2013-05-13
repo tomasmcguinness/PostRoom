@@ -42,7 +42,9 @@
         self.locationManager.delegate = self;
     }
     
-    CLLocationDegrees radius = 10.0;
+    [self stopMonitoringLocations];
+    
+    CLLocationDegrees radius = 200.0;
     CLLocationCoordinate2D location = CLLocationCoordinate2DMake([latitude floatValue],[longitude floatValue]);
     
     CLRegion* region = [[CLRegion alloc] initCircularRegionWithCenter:location radius:radius identifier:@"Estate"];
