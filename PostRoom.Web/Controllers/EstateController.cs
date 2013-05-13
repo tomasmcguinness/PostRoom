@@ -6,11 +6,12 @@ using System.Web.Mvc;
 
 namespace PostRoom.Web.Controllers
 {
+    [Authorize]
     public class EstateController : Controller
     {
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Post", new { estateId = 1 });
         }
     }
 }
