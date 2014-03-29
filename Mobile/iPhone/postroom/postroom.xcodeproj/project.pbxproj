@@ -333,9 +333,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2CFED3AD17212B4D00A5E599 /* postroom */ = {
+		2CFED3AD17212B4D00A5E599 /* Post Room */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2CFED3E617212B4D00A5E599 /* Build configuration list for PBXNativeTarget "postroom" */;
+			buildConfigurationList = 2CFED3E617212B4D00A5E599 /* Build configuration list for PBXNativeTarget "Post Room" */;
 			buildPhases = (
 				7EF899586DE7415D855ADADD /* Check Pods Manifest.lock */,
 				2CFED3AA17212B4D00A5E599 /* Sources */,
@@ -347,7 +347,7 @@
 			);
 			dependencies = (
 			);
-			name = postroom;
+			name = "Post Room";
 			productName = postroom;
 			productReference = 2CFED3AE17212B4D00A5E599 /* Post Room.app */;
 			productType = "com.apple.product-type.application";
@@ -392,7 +392,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2CFED3AD17212B4D00A5E599 /* postroom */,
+				2CFED3AD17212B4D00A5E599 /* Post Room */,
 				2CFED3D217212B4D00A5E599 /* postroomTests */,
 			);
 		};
@@ -509,7 +509,7 @@
 /* Begin PBXTargetDependency section */
 		2CFED3DA17212B4D00A5E599 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2CFED3AD17212B4D00A5E599 /* postroom */;
+			target = 2CFED3AD17212B4D00A5E599 /* Post Room */;
 			targetProxy = 2CFED3D917212B4D00A5E599 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -674,7 +674,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2CFED3E617212B4D00A5E599 /* Build configuration list for PBXNativeTarget "postroom" */ = {
+		2CFED3E617212B4D00A5E599 /* Build configuration list for PBXNativeTarget "Post Room" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2CFED3E717212B4D00A5E599 /* Debug */,

@@ -74,7 +74,10 @@
 
 - (void)refresh
 {
-    [self.model updatePost:self.settingsModel.deviceIdentifier];
+    if(self.settingsModel.hasPropertySelected)
+    {
+        [self.model updatePost:self.settingsModel.deviceIdentifier];
+    }
 }
 
 - (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
